@@ -1,11 +1,216 @@
-name: Build ZMK firmware
+name: Build ZMK Firmware
+
 on:
-  workflow_dispatch:
   push:
-    paths-ignore:
-      - "keymap-drawer/**"
+    branches: [ main, develop ]
+    paths:
+      - 'config/**'
+      - 'build.yaml'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'config/**'
+      - 'build.yaml'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag (optional)'
+        required: false
+        type: string
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
 
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Standard wireless mode
+          - board: eyelash_sofle_left
+            shield: nice_view
+            artifact: eyelash_sofle_standard_left
+          - board: eyelash_sofle_right
+            shield: nice_view_custom
+            artifact: eyelash_sofle_standard_right
+
+          # ZMK Studio mode
+          - board: eyelash_sofle_left
+            shield: nice_view
+            artifact: eyelash_sofle_studio_left
+            cmake_args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+            snippet: studio-rpc-usb-uart
+
+          # Dongle mode central
+          - board: nice_nano_v2
+            shield: dongle_display
+            artifact: eyelash_sofle_dongle_central
+
+          # Settings reset
+          - board: eyelash_sofle_left
+            shield: settings_reset
+            artifact: settings_reset_left
+          - board: eyelash_sofle_right
+            shield: settings_reset
+            artifact: settings_reset_right
+          - board: nice_nano_v2
+            shield: settings_reset
+            artifact: settings_reset_dongle
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Cache west modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          modules/
+          tools/
+          zephyr/
+          bootloader/
+          zmk/
+        key: ${{ runner.os }}-west-${{ hashFiles('**/west.yml', '**/build.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-west-
+
+    - name: West Init
+      run: west init -l config
+
+    - name: West Update
+      run: west update
+
+    - name: West Zephyr Export
+      run: west zephyr-export
+
+    - name: Build Firmware
+      run: |
+        if [ -n "${{ matrix.snippet }}" ]; then
+          SNIPPET_ARG="--snippet ${{ matrix.snippet }}"
+        else
+          SNIPPET_ARG=""
+        fi
+
+        if [ -n "${{ matrix.cmake_args }}" ]; then
+          CMAKE_ARGS="${{ matrix.cmake_args }}"
+        else
+          CMAKE_ARGS=""
+        fi
+
+        west build -s zmk/app -b ${{ matrix.board }} $SNIPPET_ARG -- \
+          -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+          -DSHIELD="${{ matrix.shield }}" \
+          $CMAKE_ARGS
+
+    - name: Rename UF2 file
+      run: |
+        if [ -f build/zephyr/zmk.uf2 ]; then
+          mv build/zephyr/zmk.uf2 build/zephyr/${{ matrix.artifact }}.uf2
+        fi
+
+    - name: Archive Firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.artifact }}
+        path: build/zephyr/${{ matrix.artifact }}.uf2
+        retention-days: 30
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || inputs.release_tag != ''
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: firmware
+
+    - name: Prepare firmware files
+      run: |
+        mkdir -p release
+        find firmware -name "*.uf2" -exec cp {} release/ \;
+        ls -la release/
+
+    - name: Create timestamp
+      id: timestamp
+      run: echo "timestamp=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      if: inputs.release_tag != ''
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ inputs.release_tag }}
+        name: "ZMK Eyelash Sofle Firmware ${{ inputs.release_tag }}"
+        body: |
+          🎹 **ZMK Eyelash Sofle Firmware Release**
+
+          **What's Included:**
+          - 🖥️ Standard wireless firmware for both halves
+          - 🎛️ ZMK Studio enabled firmware for real-time editing
+          - 📡 Dongle mode central firmware with custom OLED display
+          - 🔄 Settings reset firmware for all devices
+
+          **Installation:**
+          1. Put your device in bootloader mode (double-tap reset)
+          2. Copy the appropriate `.uf2` file to the USB drive that appears
+          3. Wait for the device to restart
+
+          **Firmware Files:**
+          - `eyelash_sofle_standard_left.uf2` - Left half standard mode
+          - `eyelash_sofle_standard_right.uf2` - Right half standard mode
+          - `eyelash_sofle_studio_left.uf2` - Left half with ZMK Studio
+          - `eyelash_sofle_dongle_central.uf2` - Dongle central with display
+          - `settings_reset_*.uf2` - Reset settings for fresh start
+
+          **Documentation:**
+          - 📖 [Quick Start Guide](docs/quick-start.md)
+          - 🔧 [Building Firmware](docs/building-firmware.md)
+          - 📡 [Dongle Mode Setup](docs/dongle-mode.md)
+          - 🎛️ [ZMK Studio Guide](docs/zmk-studio.md)
+          - 🔍 [Troubleshooting](docs/troubleshooting.md)
+
+          Built from commit: ${{ github.sha }}
+        files: release/*.uf2
+        generate_release_notes: false
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Development Build
+      if: inputs.release_tag == '' && github.ref == 'refs/heads/main'
+      uses: actions/upload-artifact@v4
+      with:
+        name: firmware-build-${{ steps.timestamp.outputs.timestamp }}
+        path: release/
+        retention-days: 7
+
+  notify:
+    needs: [build, release]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Notify Build Status
+      run: |
+        if [ "${{ needs.build.result }}" == "success" ]; then
+          echo "✅ Firmware build completed successfully"
+        else
+          echo "❌ Firmware build failed"
+          exit 1
+        fi
+
+        if [ "${{ needs.release.result }}" == "success" ]; then
+          echo "🎉 Release created successfully"
+        elif [ "${{ needs.release.result }}" == "skipped" ]; then
+          echo "⏭️ Release skipped (development build)"
+        else
+          echo "⚠️ Release failed or was cancelled"
+        fi

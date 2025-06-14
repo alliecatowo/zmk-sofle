@@ -1,0 +1,88 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Build Standard Firmware",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "west build --board eyelash_sofle_left -- -DZMK_CONFIG=\"${workspaceFolder}/config\"",
+            "cwd": "${workspaceFolder}",
+            "group": "build"
+        },
+        {
+            "name": "Build Dongle Firmware",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "west build --pristine",
+            "cwd": "${workspaceFolder}",
+            "group": "build"
+        },
+        {
+            "name": "Build Studio Firmware",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "west build --board eyelash_sofle_left --shield nice_view -- -DZMK_CONFIG=\"${workspaceFolder}/config\" -DCONFIG_ZMK_STUDIO=y",
+            "cwd": "${workspaceFolder}",
+            "group": "build"
+        },
+        {
+            "name": "Build Emulation",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "west build -b native_posix -- -DZMK_CONFIG=\"${workspaceFolder}/config\"",
+            "cwd": "${workspaceFolder}",
+            "group": "build"
+        },
+        {
+            "name": "Run Hardware Emulator",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "python3",
+            "args": [
+                "emulator/simulator/keyboard_sim.py"
+            ],
+            "cwd": "${workspaceFolder}",
+            "group": "test"
+        },
+        {
+            "name": "Launch Virtual Keyboard",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "./emulator/launch-virtual-keyboard.sh",
+            "cwd": "${workspaceFolder}",
+            "group": "test"
+        },
+        {
+            "name": "Setup Development Environment",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "./scripts/setup-dev-environment.sh",
+            "cwd": "${workspaceFolder}",
+            "group": "setup"
+        },
+        {
+            "name": "Setup Dongle Configuration",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "./scripts/setup-dongle-configuration.sh",
+            "cwd": "${workspaceFolder}",
+            "group": "setup"
+        },
+        {
+            "name": "West Update",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "west update",
+            "cwd": "${workspaceFolder}",
+            "group": "maintenance"
+        },
+        {
+            "name": "Clean Build",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "rm -rf build && echo 'Build directory cleaned'",
+            "cwd": "${workspaceFolder}",
+            "group": "maintenance"
+        }
+    ]
+}

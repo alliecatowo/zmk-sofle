@@ -1,0 +1,12 @@
+identifier: 01space_rp2040_042lcd
+name: 01Space RP2040 0.42 LCD
+type: mcu
+arch: arm
+flash: 2048
+ram: 256
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+supported:
+  - serial

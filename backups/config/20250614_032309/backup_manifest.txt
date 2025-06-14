@@ -1,0 +1,14 @@
+ZMK Eyelash Sofle Configuration Backup
+Created: Sat Jun 14 03:23:09 PDT 2025
+Hostname: MacBook-Pro.local
+User: allison
+Commit: eeed8f584d2edae33e196b0812a5c6a9c7174a8c
+
+Files backed up:
+total 40
+drwxr-xr-x  7 allison  staff   224 Jun 14 03:23 .
+drwxr-xr-x  3 allison  staff    96 Jun 14 03:23 ..
+-rw-r--r--@ 1 allison  staff   382 Jun 14 03:23 build.yaml
+-rw-r--r--@ 1 allison  staff  1127 Jun 14 03:23 eyelash_sofle.conf
+-rw-r--r--@ 1 allison  staff  4704 Jun 14 03:23 eyelash_sofle.keymap
+-rw-r--r--@ 1 allison  staff   596 Jun 14 03:23 west.yml

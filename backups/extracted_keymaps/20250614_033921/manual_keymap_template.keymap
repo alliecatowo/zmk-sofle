@@ -1,0 +1,25 @@
+/*
+ * Extracted ZMK Studio Keymap
+ * Copy your keymap configuration here
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/outputs.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        // Copy your layers here from ZMK Studio
+        default_layer {
+            bindings = <
+                // Paste your key bindings here
+            >;
+        };
+
+        // Add additional layers as needed
+    };
+};

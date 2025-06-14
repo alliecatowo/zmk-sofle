@@ -1,0 +1,282 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "West Update",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "update"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build All Firmware",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "--pristine"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "gcc",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "Build Standard Left",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "--board",
+                "eyelash_sofle_left",
+                "--shield",
+                "nice_view",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Standard Right",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "--board",
+                "eyelash_sofle_right",
+                "--shield",
+                "nice_view_custom",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Dongle Central",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "--board",
+                "nice_nano_v2",
+                "--shield",
+                "dongle_display",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Studio Firmware",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "--board",
+                "eyelash_sofle_left",
+                "--shield",
+                "nice_view",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config",
+                "-DCONFIG_ZMK_STUDIO=y",
+                "-DCONFIG_ZMK_STUDIO_LOCKING=n"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build Emulation",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "-b",
+                "native_posix",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Setup Development Environment",
+            "type": "shell",
+            "command": "./scripts/setup-dev-environment.sh",
+            "group": "setup",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Setup Dongle Configuration",
+            "type": "shell",
+            "command": "./scripts/setup-dongle-configuration.sh",
+            "group": "setup",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Launch Virtual Keyboard",
+            "type": "shell",
+            "command": "./emulator/launch-virtual-keyboard.sh",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "isBackground": true
+        },
+        {
+            "label": "Run Hardware Simulator",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "emulator/simulator/keyboard_sim.py"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Copy Firmware to Desktop",
+            "type": "shell",
+            "command": "find",
+            "args": [
+                "build",
+                "-name",
+                "*.uf2",
+                "-exec",
+                "cp",
+                "{}",
+                "~/Desktop/",
+                ";"
+            ],
+            "group": "deploy",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Archive Firmware",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "firmware/$(date +%Y%m%d_%H%M%S)",
+                "&&",
+                "find",
+                "build",
+                "-name",
+                "*.uf2",
+                "-exec",
+                "cp",
+                "{}",
+                "firmware/$(date +%Y%m%d_%H%M%S)/",
+                ";"
+            ],
+            "group": "deploy",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}
