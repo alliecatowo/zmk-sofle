@@ -1,0 +1,14 @@
+ZMK Dongle Pre-Bonding Configuration
+Generated: Sat Jun 14 04:34:56 PDT 2025
+
+Bond Key: 6b6d2ea8d85ca429a0a904f28de268d9
+Left Peripheral Address: 87:e2:66:5f:97:8c
+Right Peripheral Address: c4:55:fa:f2:7f:31
+Dongle Central Address: e7:d6:21:bf:03:11
+
+Flashing Order:
+1. Flash settings_reset to all devices first
+2. Flash dongle firmware to Nice!Nano v2
+3. Flash left peripheral firmware to left half
+4. Flash right peripheral firmware to right half
+5. Power on in order: dongle, left, right

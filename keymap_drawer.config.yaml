@@ -16,6 +16,8 @@ draw_config:
   arc_radius: 6.0
   append_colon_to_layer_header: true
   small_pad: 2.0
+  # Skip keyboards that don't have physical layouts
+  skip_keyboards: ["dongle"]
   svg_extra_style: |
     /* For default sytles, see https://github.com/caksoylar/keymap-drawer/blob/main/keymap_drawer/config.py#L85 */
 
@@ -119,8 +121,8 @@ parse_config:
   raw_binding_map:
     # Layers
     "&ltq 1 BACKSPACE":
-      tap:  $$mdi:backspace$$
-      hold: '$$mdi:navigation-variant$$'
+      tap: $$mdi:backspace$$
+      hold: "$$mdi:navigation-variant$$"
     "&ltq 3 TAB":
       tap: $$mdi:keyboard-tab$$
       hold: $$mdi:numeric$$
@@ -135,62 +137,62 @@ parse_config:
       hold: $$mdi:navigation-variant$$
     # Home rows
     "&hm LEFT_GUI A":
-      tap: 'A'
+      tap: "A"
       shifted: $$mdi:apple-keyboard-command$$
     "&hm LEFT_ALT S":
-      tap: 'S'
+      tap: "S"
       shifted: $$mdi:apple-keyboard-option$$
     "&hm LEFT_CONTROL D":
-      tap: 'D'
+      tap: "D"
       shifted: $$mdi:apple-keyboard-control$$
     "&hm LEFT_SHIFT F":
-      tap: 'F'
+      tap: "F"
       shifted: $$mdi:apple-keyboard-shift$$
     "&hm RIGHT_SHIFT J":
-      tap: 'J'
+      tap: "J"
       shifted: $$mdi:apple-keyboard-shift$$
     "&hm RIGHT_CONTROL K":
-      tap: 'K'
+      tap: "K"
       shifted: $$mdi:apple-keyboard-control$$
     "&hm RIGHT_ALT L":
-      tap: 'L'
+      tap: "L"
       shifted: $$mdi:apple-keyboard-option$$
     # self behaviors
     "&hm LG(LS(V)) P":
-      tap: 'P'
+      tap: "P"
       shifted: $$mdi:content-copy$$
     # Mouse
     "&msc SCRL_UP":
       tap: $$mdi:pan-up$$
-      hold: ''
-      shifted: ''
+      hold: ""
+      shifted: ""
     "&msc SCRL_DOWN":
       tap: $$mdi:pan-down$$
-      hold: ''
-      shifted: ''
+      hold: ""
+      shifted: ""
     "&msc SCRL_LEFT":
       tap: $$mdi:pan-left$$
-      hold: ''
-      shifted: ''
+      hold: ""
+      shifted: ""
     "&msc SCRL_RIGHT":
       tap: $$mdi:pan-right$$
-      hold: ''
-      shifted: ''
+      hold: ""
+      shifted: ""
     "&mmv MOVE_LEFT":
       tap: $$mdi:menu-left$$
-      hold: ''
+      hold: ""
       shifted: $$mdi:mouse$$
     "&mmv MOVE_RIGHT":
       tap: $$mdi:menu-right$$
-      hold: ''
+      hold: ""
       shifted: $$mdi:mouse$$
     "&mmv MOVE_UP":
       tap: $$mdi:menu-up$$
-      hold: ''
+      hold: ""
       shifted: $$mdi:mouse$$
     "&mmv MOVE_DOWN":
       tap: $$mdi:menu-down$$
-      hold: ''
+      hold: ""
       shifted: $$mdi:mouse$$
     "&mkp LCLK":
       tap: $$mdi:mouse-left-click-outline$$
@@ -318,10 +320,10 @@ parse_config:
     SQT:
       tap: "'"
       shifted: '"'
-    APOSTROPHE: 
+    APOSTROPHE:
       tap: "'"
       shifted: '"'
-    APOS: 
+    APOS:
       tap: "'"
       shifted: '"'
     DOUBLE_QUOTES: '"'
@@ -329,7 +331,7 @@ parse_config:
 
     LESS_THAN: <
     LT: <
-    PERIOD: '.'
+    PERIOD: "."
     DOT:
       tap: "."
       shifted: ">"
@@ -418,14 +420,14 @@ parse_config:
     PSCRN: $$mdi:printer-outline$$
     RIGHT_COMMAND: $$mdi:apple-keyboard-command$$
     PAGE_UP:
-      tap: 'PgUp'
-      shifted: ''
+      tap: "PgUp"
+      shifted: ""
     PAGE_DOWN:
-      tap: 'PgDn'
-      shifted: ''
+      tap: "PgDn"
+      shifted: ""
     INSERT:
-       tap: 'Ins'
-       shifted: ''
+      tap: "Ins"
+      shifted: ""
     # "Meh" key
     LS(LC(LALT)): $$mdi:star-three-points$$
 
@@ -492,30 +494,30 @@ parse_config:
     C_AL_LOCK: $$mdi:lock$$
     K_CANCEL: $$mdi:close-box$$
     K_FIND: $$mdi:apple-finder$$
-    # Command + 
+    # Command +
     LG(A):
-      tap: 'A'
+      tap: "A"
       hold: $$mdi:apple-keyboard-command$$
     LG(S):
-      tap: 'S'
+      tap: "S"
       hold: $$mdi:apple-keyboard-command$$
     LG(D):
-      tap: 'D'
+      tap: "D"
       hold: $$mdi:apple-keyboard-command$$
     LG(F):
-      tap: 'F'
+      tap: "F"
       hold: $$mdi:apple-keyboard-command$$
     LG(Z):
-      tap: 'Z'
+      tap: "Z"
       hold: $$mdi:apple-keyboard-command$$
     LG(X):
-      tap: 'X'
+      tap: "X"
       hold: $$mdi:apple-keyboard-command$$
     LG(C):
-      tap: 'C'
+      tap: "C"
       hold: $$mdi:apple-keyboard-command$$
     LG(V):
-      tap: 'V'
+      tap: "V"
       hold: $$mdi:apple-keyboard-command$$
     # Zoom
     RG(RS(A)):

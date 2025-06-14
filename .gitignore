@@ -2,4 +2,4 @@ build/
 zmk/
 modules/
 tools/
-.west/
+.west/zmk-dongle-display/
