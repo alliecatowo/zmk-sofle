@@ -573,17 +573,3 @@ parse_config:
       key:
         shifted: ":"
         hold: ";"
-
-boards:
-  eyelash_sofle_left:
-    layout:
-      qmk_keyboard: sofle
-      qmk_layout: LAYOUT
-  eyelash_sofle_right:
-    layout:
-      qmk_keyboard: sofle
-      qmk_layout: LAYOUT
-
-# Exclude dongle keymap from drawing
-exclude_keymaps:
-  - config/dongle.keymap
