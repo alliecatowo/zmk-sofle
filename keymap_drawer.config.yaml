@@ -1,5 +1,5 @@
 draw_config:
-  n_columns: 1
+  n_columns: 10
   draw_key_sides: true
   key_w: 60.0
   key_h: 56.0
@@ -98,7 +98,7 @@ draw_config:
       visibility: hidden;
     }
 
-  shrink_wide_legends: 6
+  shrink_wide_legends: 7
   glyph_tap_size: 18
   glyph_hold_size: 15
   glyph_shifted_size: 15
@@ -110,10 +110,21 @@ draw_config:
     mdil: https://raw.githubusercontent.com/Pictogrammers/MaterialDesignLight/master/svg/{}.svg
     material: https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/{}/default/48px.svg
   use_local_cache: true
+  dark_theme: auto
+  separate_combo_diagrams: true
+  combo_diagrams_scale: 2
+  separate_layers: false
+  ortho_layout: false
+  keys_only: false
+  ghost_keys: []
 
 parse_config:
+  preprocess: true
+  skip_binding_parsing: false
+  raw_binding_map: false
+  sticky_label: sticky
+  toggle_label: toggle
   mark_alternate_layer_activators: true
-  sticky_label: $$mdi:gesture-tap-hold$$
   trans_legend:
     tap: $$mdi:transfer$$
     type: trans
@@ -562,3 +573,17 @@ parse_config:
       key:
         shifted: ":"
         hold: ";"
+
+boards:
+  eyelash_sofle_left:
+    layout:
+      qmk_keyboard: sofle
+      qmk_layout: LAYOUT
+  eyelash_sofle_right:
+    layout:
+      qmk_keyboard: sofle
+      qmk_layout: LAYOUT
+
+# Exclude dongle keymap from drawing
+exclude_keymaps:
+  - config/dongle.keymap

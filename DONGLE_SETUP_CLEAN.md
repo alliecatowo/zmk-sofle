@@ -1,0 +1,70 @@
+# AllieCatKeeb Dongle Setup
+
+Clean and simple setup for ZMK dongle mode with OLED display.
+
+## Quick Start
+
+1. **Extract your current keymap** (IMPORTANT - do this first!):
+   ```bash
+   ./scripts/extract-current-keymap.sh
+   ```
+
+2. **Build dongle firmware locally**:
+   ```bash
+   ./scripts/build-dongle-simple.sh
+   ```
+
+3. **Use GitHub Actions** for complete firmware set:
+   - Push to GitHub
+   - Download artifacts from Actions tab
+   - Get all firmware files: dongle, left peripheral, right peripheral, settings reset
+
+## Hardware Requirements
+
+- **Dongle**: Nice!Nano v2 + 128x64 OLED display (I2C)
+- **Keyboard halves**: Your existing Eyelash Sofle boards
+
+## Firmware Files
+
+GitHub Actions builds these files:
+
+- `alliecatkeeb_dongle_central.uf2` - Flash to dongle (Nice!Nano v2)
+- `alliecatkeeb_left_peripheral.uf2` - Flash to left half
+- `alliecatkeeb_right_peripheral.uf2` - Flash to right half
+- `settings_reset_*.uf2` - Reset Bluetooth settings if needed
+
+## Flashing Order
+
+1. Flash settings reset to all devices (if needed)
+2. Flash dongle firmware to Nice!Nano v2
+3. Flash peripheral firmware to keyboard halves
+4. Power on dongle first, then keyboard halves
+5. They should auto-pair
+
+## OLED Wiring
+
+Connect 128x64 OLED to Nice!Nano v2:
+- VCC → 3.3V
+- GND → GND
+- SDA → Pin 2 (I2C SDA)
+- SCL → Pin 3 (I2C SCL)
+
+## Features
+
+- ✅ Wireless dongle with OLED display
+- ✅ Shows current layer, battery levels, connection status
+- ✅ Preserves your existing keymap
+- ✅ Works with ZMK Studio
+- ✅ Clean GitHub Actions build
+
+## Troubleshooting
+
+- **No pairing**: Flash settings reset, then reflash firmware
+- **Display not working**: Check I2C wiring to pins 2/3
+- **Build fails**: Run `./scripts/setup-local-build.sh` first
+
+## Scripts
+
+- `extract-current-keymap.sh` - Backup your current keymap
+- `build-dongle-simple.sh` - Build dongle firmware locally
+- `setup-local-build.sh` - Set up local build environment
