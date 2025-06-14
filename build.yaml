@@ -1,4 +1,5 @@
 ---
+# ZMK Build Configuration for Eyelash Sofle
 include:
   # Standard wireless mode (your current setup)
   - board: eyelash_sofle_left
