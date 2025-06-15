@@ -1,24 +1,17 @@
-name: Build ZMK Firmware
-
+name: Main
 on:
-  push:
-    paths-ignore:
-      - "docs/**"
-      - "**.md"
-      - ".gitignore"
-  pull_request:
   workflow_dispatch:
-    inputs:
-      build_type:
-        description: 'Build Type'
-        required: true
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - standard
-          - dongle
-          - reset-only
+  push:
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'boards/**'
+      - 'zephyr/**'
+      - '**.keymap'
+      - '.github/workflows/build.yml'
+      - 'build.yaml'
+      - 'build-*.yaml'
 
 jobs:
   build:
