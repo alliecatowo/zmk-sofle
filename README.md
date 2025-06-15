@@ -49,28 +49,74 @@ Go to Actions → Build ZMK Firmware → Run workflow and choose:
 - **Display Support**: OLED and Nice!View e-ink displays
 - **RGB Underglow**: Customizable lighting effects
 - **Low Power**: Optimized for battery life
+- **Automated Builds & Keymap Diagrams**: CI/CD integration
 
 ## 🛠️ Hardware Requirements
 
-### For Standard Mode
-- 2x Nice!Nano v2 controllers
-- 2x Nice!View displays (or 128x64 OLED)
-- Eyelash Sofle PCBs
+This project is configured for the Eyelash Sofle, which typically uses:
+- **Controllers**: 2x Nice!Nano v2 (3x for dongle mode)
+- **Displays**: 2x Nice!View (or 128x64 OLEDs)
+- **Dongle Display**: 1x 128x64 OLED
 
-### For Dongle Mode
-- 3x Nice!Nano v2 controllers (one for dongle)
-- 2x Nice!View displays
-- 1x 128x64 OLED for dongle
-- Eyelash Sofle PCBs
+### Official Product Links
+- [**Eyelash Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
+- [**ZMK Dongle Display Module** by @englmaxi](https://github.com/englmaxi/zmk-dongle-display)
 
-## 📦 What's Included
+## 🎨 Keymap
 
-- Complete ZMK configuration for Eyelash Sofle
-- Support for both split and dongle modes
-- Pre-configured display layouts
-- RGB underglow configuration
-- Power management optimizations
-- Automated GitHub Actions builds
+The keymap diagram below is automatically updated with every change to the `config/eyelash_sofle.keymap` file.
+
+<img src="keymap-drawer/sofle.svg" alt="Sofle Keymap Layout">
+
+## 🚀 CI/CD - Continuous Integration
+
+This repository is configured with GitHub Actions to ensure code quality and automate tasks.
+
+### Branch Protection (Manual Setup Required)
+To prevent broken changes from being merged into `main`, you should enable branch protection.
+
+1. Go to your repository **Settings** > **Branches**.
+2. Click **Add branch protection rule**.
+3. Set **Branch name pattern** to `main`.
+4. Enable **Require status checks to pass before merging**.
+5. Select the `build` job from the status checks list.
+6. Click **Save changes**.
+
+This will ensure that all firmware variants build successfully before a pull request can be merged.
+
+## 📦 Release Management
+
+This repository uses a system that combines automated changelogs with manual release tagging to give you full control over the release process.
+
+### Versioning
+We use [Semantic Versioning](https://semver.org/) (e.g., `v1.2.3`). To create a new version, create a new Git tag:
+```bash
+# Example for a new minor version
+git tag v1.3.0
+git push origin v1.3.0
+```
+
+### Automated Changelog
+A `CHANGELOG.md` is automatically generated based on your commit history. To update it, go to **Actions** > **Generate Changelog** and run the workflow.
+
+### Creating a Release
+1. **Generate the changelog** using the GitHub Action.
+2. **Create a new release** on GitHub from the [Releases page](https://github.com/alliecatowo/zmk-sofle/releases).
+3. **Choose the Git tag** you created (e.g., `v1.3.0`).
+4. **Copy the relevant section** from `CHANGELOG.md` into the release description.
+5. **Add your release notes** and classify the release (e.g., "Pride," "Normal," or "Shame") in the description.
+
+## 📚 GitBook Documentation
+
+This repository is GitBook-ready. GitBook creates a beautiful, user-friendly documentation site from your `docs` folder.
+
+### Manual Setup Required
+1. Go to [GitBook](https://www.gitbook.com) and sign up with your GitHub account.
+2. Create a new space and choose to sync it with a GitHub repository.
+3. Select your `zmk-sofle` fork.
+4. GitBook will automatically detect your `docs` folder and `SUMMARY.md` file to build your site.
+
+Your documentation will be publicly available and automatically updated whenever you push changes to your `main` branch.
 
 ## 🤝 Contributing
 
@@ -84,9 +130,9 @@ This project inherits the licenses of its components:
 
 ## 🙏 Credits
 
-- Original Eyelash Sofle design from AliExpress seller
-- ZMK firmware team for the excellent keyboard firmware
-- @englmaxi for the zmk-dongle-display module
+- Original [Eyelash Sofle design](https://www.aliexpress.us/item/3256807855305954.html) from AliExpress seller
+- [ZMK firmware team](https://zmk.dev) for the excellent keyboard firmware
+- [@englmaxi](https://github.com/englmaxi) for the [zmk-dongle-display](https://github.com/englmaxi/zmk-dongle-display) module
 
 ---
 
