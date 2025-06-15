@@ -8,18 +8,18 @@ include:
     artifact-name: alliecatkeeb_dongle_central
 
   # Left half peripheral for dongle mode
-  - board: eyelash_sofle_left
+  - board: alliecat_keeb_left
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebL\""
     artifact-name: alliecatkeeb_left_peripheral
 
   # Right half peripheral for dongle mode
-  - board: eyelash_sofle_right
+  - board: alliecat_keeb_right
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebR\""
     artifact-name: alliecatkeeb_right_peripheral
 
   # Dongle peripheral
-  - board: eyelash_sofle_dongle
+  - board: alliecat_keeb_dongle
     shield:
       - dongle_display

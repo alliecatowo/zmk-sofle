@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-This comprehensive troubleshooting guide covers common issues and their solutions for the ZMK Eyelash Sofle keyboard. Before contacting support, please work through these solutions systematically.
+This comprehensive troubleshooting guide covers common issues and their solutions for the ZMK AllieCat Sofle keyboard. Before contacting support, please work through these solutions systematically.
 
 ## 🔍 Quick Problem Diagnosis
 
@@ -143,7 +143,7 @@ This comprehensive troubleshooting guide covers common issues and their solution
 **Firmware Solutions**
 1. **Adjust Debounce Settings**
    ```c
-   // In eyelash_sofle.conf
+   // In alliecat_keeb.conf
    CONFIG_ZMK_KSCAN_DEBOUNCE_PRESS_MS=5
    CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS=5
    ```
@@ -165,7 +165,7 @@ This comprehensive troubleshooting guide covers common issues and their solution
    ```
    Press and release all modifier keys individually:
    - Left Shift, Right Shift
-   - Left Ctrl, Right Ctrl  
+   - Left Ctrl, Right Ctrl
    - Left Alt, Right Alt
    - GUI keys
    ```
@@ -636,4 +636,4 @@ If keyboard becomes completely unresponsive:
 
 ---
 
-**Remember**: Most issues can be resolved with systematic troubleshooting. Take your time, work through the steps methodically, and don't hesitate to ask for help when needed. 
+**Remember**: Most issues can be resolved with systematic troubleshooting. Take your time, work through the steps methodically, and don't hesitate to ask for help when needed.

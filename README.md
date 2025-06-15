@@ -19,6 +19,15 @@ The documentation is managed in the `/docs` directory of this repository.
 
 Pre-built firmware can be downloaded from the **Artifacts** section of the latest [GitHub Actions build run](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml).
 
+*   **Standard Mode**: `alliecat_keeb_studio_left.uf2` + `alliecat_keeb_standard_right.uf2`
+*   **Dongle Mode**: See the [Dongle Mode Setup Guide](docs/dongle-mode.md).
+
+### Flashing Steps
+
+1.  **Enter Bootloader**: Double-tap the reset button on your keyboard half. It should appear as a `NICENANO` or `XIAO` drive.
+2.  **Copy Firmware**: Drag and drop the `.uf2` file onto the drive.
+3.  **Repeat**: Do the same for the other half.
+
 ## 🚀 Quick Start
 
 ### Option 1: Use Pre-built Firmware (Easiest)
@@ -27,13 +36,13 @@ Pre-built firmware can be downloaded from the **Artifacts** section of the lates
 2. Click the latest successful build
 3. Download the firmware artifacts
 4. Flash according to your setup:
-   - **Standard Mode**: `eyelash_sofle_studio_left.uf2` + `eyelash_sofle_standard_right.uf2`
+   - **Standard Mode**: `alliecat_keeb_studio_left.uf2` + `alliecat_keeb_standard_right.uf2`
    - **Dongle Mode**: `alliecatkeeb_dongle_central.uf2` + both peripheral firmwares
 
 ### Option 2: Fork and Build (Customizable)
 
 1. Fork this repository
-2. Edit `config/eyelash_sofle.keymap` to customize your layout
+2. Edit `config/alliecat_keeb.keymap` to customize your layout
 3. Push changes to trigger automatic builds
 4. Download firmware from Actions tab
 
@@ -69,7 +78,7 @@ This project is configured for the Eyelash Sofle, which typically uses:
 
 ## 🎨 Keymap
 
-The keymap diagram below is automatically updated with every change to the `config/eyelash_sofle.keymap` file.
+The keymap diagram below is automatically updated with every change to the `config/alliecat_keeb.keymap` file.
 
 <img src="keymap-drawer/sofle.svg" alt="Sofle Keymap Layout">
 

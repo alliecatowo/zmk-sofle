@@ -1,6 +1,6 @@
 # ZMK Studio Integration Guide
 
-ZMK Studio provides real-time keymap editing capabilities for your Eyelash Sofle keyboard. This revolutionary feature allows you to modify your keymap, adjust RGB settings, and configure behaviors without rebuilding or reflashing firmware.
+ZMK Studio provides real-time keymap editing capabilities for your AllieCat Sofle keyboard. This revolutionary feature allows you to modify your keymap, adjust RGB settings, and configure behaviors without rebuilding or reflashing firmware.
 
 ## 🎯 What is ZMK Studio?
 
@@ -88,7 +88,7 @@ Your keyboard needs special firmware with Studio support enabled. This repositor
 
 3. **Device Detection**
    - ZMK Studio should automatically detect your keyboard
-   - Look for "Eyelash Sofle" in device list
+   - Look for "AllieCat Sofle" in device list
    - Click "Connect" to establish connection
 
 ### Step 3: Verify Connection

@@ -15,6 +15,7 @@ Whether you're looking to build your own, flash the firmware, or customize the k
 *   **[Official ZMK Docs](https://zmk.dev/docs)**: The definitive resource for the ZMK firmware.
 *   **[Sofle Keyboard Project](https://josefadamcik.github.io/SofleKeyboard/)**: The original design that inspired this keyboard.
 *   **[Dongle Display Module](https://github.com/englmaxi/zmk-dongle-display)**: The custom display used for the receiver dongle.
+*   **[Original AllieCatKeeb Design](https://www.aliexpress.us/item/3256807855305954.html)** from AliExpress seller
 
 ## 🚀 Quick Start
 
@@ -24,13 +25,13 @@ Whether you're looking to build your own, flash the firmware, or customize the k
 2. Click the latest successful build
 3. Download the firmware artifacts
 4. Flash according to your setup:
-   - **Standard Mode**: `eyelash_sofle_studio_left.uf2` + `eyelash_sofle_standard_right.uf2`
+   - **Standard Mode**: `alliecat_keeb_studio_left.uf2` + `alliecat_keeb_standard_right.uf2`
    - **Dongle Mode**: `alliecatkeeb_dongle_central.uf2` + both peripheral firmwares
 
 ### Option 2: Fork and Build (Customizable)
 
 1. Fork this repository
-2. Edit `config/eyelash_sofle.keymap` to customize your layout
+2. Edit `config/alliecat_keeb.keymap` to customize your layout
 3. Push changes to trigger automatic builds
 4. Download firmware from Actions tab
 
@@ -66,7 +67,7 @@ This project is configured for the Eyelash Sofle, which typically uses:
 
 ## 🎨 Keymap
 
-The keymap diagram below is automatically updated with every change to the `config/eyelash_sofle.keymap` file.
+The keymap diagram below is automatically updated with every change to the `config/alliecat_keeb.keymap` file.
 
 <img src="keymap-drawer/sofle.svg" alt="Sofle Keymap Layout">
 

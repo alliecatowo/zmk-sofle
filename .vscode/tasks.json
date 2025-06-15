@@ -52,13 +52,13 @@
             }
         },
         {
-            "label": "Build Standard Left",
+            "label": "Build AllieCatKeeb Left",
             "type": "shell",
             "command": "west",
             "args": [
                 "build",
                 "--board",
-                "eyelash_sofle_left",
+                "alliecat_keeb_left",
                 "--shield",
                 "nice_view",
                 "--",
@@ -70,16 +70,19 @@
                 "reveal": "always",
                 "focus": false,
                 "panel": "shared"
-            }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
-            "label": "Build Standard Right",
+            "label": "Build AllieCatKeeb Right",
             "type": "shell",
             "command": "west",
             "args": [
                 "build",
                 "--board",
-                "eyelash_sofle_right",
+                "alliecat_keeb_right",
                 "--shield",
                 "nice_view_custom",
                 "--",
@@ -91,7 +94,10 @@
                 "reveal": "always",
                 "focus": false,
                 "panel": "shared"
-            }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "label": "Build Dongle Central",
@@ -121,7 +127,7 @@
             "args": [
                 "build",
                 "--board",
-                "eyelash_sofle_left",
+                "alliecat_keeb_left",
                 "--shield",
                 "nice_view",
                 "--",
@@ -277,6 +283,52 @@
                 "focus": false,
                 "panel": "shared"
             }
+        },
+        {
+            "label": "Build AllieCatKeeb Left (Pristine)",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "-p",
+                "--board",
+                "alliecat_keeb_left",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build AllieCatKeeb Right (Pristine)",
+            "type": "shell",
+            "command": "west",
+            "args": [
+                "build",
+                "-p",
+                "--board",
+                "alliecat_keeb_right",
+                "--",
+                "-DZMK_CONFIG=${workspaceFolder}/config"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

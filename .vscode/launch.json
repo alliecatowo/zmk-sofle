@@ -5,7 +5,7 @@
             "name": "Build Standard Firmware",
             "type": "node-terminal",
             "request": "launch",
-            "command": "west build --board eyelash_sofle_left -- -DZMK_CONFIG=\"${workspaceFolder}/config\"",
+            "command": "west build --board alliecat_keeb_left -- -DZMK_CONFIG=\"${workspaceFolder}/config\"",
             "cwd": "${workspaceFolder}",
             "group": "build"
         },
@@ -21,7 +21,7 @@
             "name": "Build Studio Firmware",
             "type": "node-terminal",
             "request": "launch",
-            "command": "west build --board eyelash_sofle_left --shield nice_view -- -DZMK_CONFIG=\"${workspaceFolder}/config\" -DCONFIG_ZMK_STUDIO=y",
+            "command": "west build --board alliecat_keeb_left --shield nice_view -- -DZMK_CONFIG=\"${workspaceFolder}/config\" -DCONFIG_ZMK_STUDIO=y",
             "cwd": "${workspaceFolder}",
             "group": "build"
         },

@@ -93,6 +93,10 @@
     "python.linting.pylintEnabled": true,
     "cmake.configureOnOpen": false,
     "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.configureArgs": [
+        "-DCONFIG_ZMK_KEYBOARD_NAME=\"AllieCatKeeb\"",
+        "-DCONFIG_ZMK_STUDIO=y"
+    ],
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools",
         "editor.formatOnSave": true

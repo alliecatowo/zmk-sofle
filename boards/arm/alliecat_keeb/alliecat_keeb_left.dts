@@ -5,7 +5,7 @@
 *
 */
 
-#include "eyelash_sofle.dtsi"
+#include "alliecat_keeb.dtsi"
 
 &kscan0 {
      col-gpios
@@ -21,4 +21,3 @@
 &left_encoder {
     status = "okay";
 };
-

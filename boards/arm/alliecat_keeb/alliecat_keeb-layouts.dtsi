@@ -1,9 +1,9 @@
 #include <physical_layouts.dtsi>
 
 / {
-    eyelash_sofle_layout: eyelash_sofle_layout {
+    alliecat_keeb_layout: alliecat_keeb_layout {
         compatible = "zmk,physical-layout";
-        display-name = "Layout";
+        display-name = "AllieCatKeeb Layout";
         transform = <&default_transform>;
         keys  //                     w   h    x    y     rot    rx    ry
             = <&key_physical_attrs 100 100    0   50       0     0     0>

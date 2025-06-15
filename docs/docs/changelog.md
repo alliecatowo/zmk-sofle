@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the ZMK Eyelash Sofle firmware project are documented here.
+All notable changes to the ZMK AllieCat Sofle firmware project are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -50,11 +50,11 @@ CONFIG_ZMK_KSCAN_DEBOUNCE_RELEASE_MS=8
 ### Technical Details
 ```yaml
 # New Studio build target
-- board: eyelash_sofle_left
+- board: alliecat_keeb_left
   shield: nice_view
   snippet: studio-rpc-usb-uart
   cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-  artifact-name: eyelash_sofle_studio_left
+  artifact-name: alliecat_keeb_studio_left
 ```
 
 ### Usage
@@ -101,7 +101,7 @@ CONFIG_ZMK_RGB_UNDERGLOW_ON_START=n
 - **Nice!View displays**: OLED display integration for both halves
 - **Rotary encoder**: Volume control and layer-specific functions
 - **Mouse support**: Built-in pointing device functionality
-- **Custom board definition**: Eyelash Sofle hardware definition
+- **Custom board definition**: AllieCat Sofle hardware definition
 
 ### Hardware Support
 - **Controllers**: Nice!Nano v2 (nRF52840)
@@ -165,7 +165,7 @@ ext-power = <&gpio0 13>
 
 ### Added
 - **Comprehensive English documentation**: Complete translation and expansion
-- **Setup guides**: Detailed installation and configuration instructions  
+- **Setup guides**: Detailed installation and configuration instructions
 - **Troubleshooting**: Common issues and solutions
 - **Build instructions**: Local and cloud build processes
 - **Feature documentation**: RGB, encoder, mouse, and Studio guides
@@ -185,7 +185,7 @@ docs/
 ## Migration Notes
 
 ### From Standard ZMK
-- **Board definition**: Uses custom `eyelash_sofle` board
+- **Board definition**: Uses custom `alliecat_keeb` board
 - **Shield compatibility**: Nice!View display support included
 - **Feature additions**: Mouse, RGB, encoder support enabled by default
 
@@ -243,4 +243,4 @@ docs/
 
 ---
 
-**For the latest updates**, check the [repository releases](https://github.com/your-repo/releases) or monitor the [ZMK Discord](https://discord.gg/8cfMkQksSB) for community announcements. 
+**For the latest updates**, check the [repository releases](https://github.com/your-repo/releases) or monitor the [ZMK Discord](https://discord.gg/8cfMkQksSB) for community announcements.

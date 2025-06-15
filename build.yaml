@@ -1,15 +1,15 @@
 ---
-# ZMK Build Configuration for Eyelash Sofle
+# ZMK Build Configuration for AllieCatKeeb
 include:
   # Standard wireless mode (your current setup)
-  - board: eyelash_sofle_left
+  - board: alliecat_keeb_left
     shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-    artifact-name: eyelash_sofle_studio_left
-  - board: eyelash_sofle_right
+    artifact-name: alliecat_keeb_studio_left
+  - board: alliecat_keeb_right
     shield: nice_view
-    artifact-name: eyelash_sofle_standard_right
+    artifact-name: alliecat_keeb_standard_right
 
   # Dongle mode with zmk-dongle-display
   - board: nice_nano_v2
@@ -18,20 +18,20 @@ include:
     artifact-name: alliecatkeeb_dongle_central
 
   # Peripheral halves for dongle mode
-  - board: eyelash_sofle_left
+  - board: alliecat_keeb_left
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebL\""
     artifact-name: alliecatkeeb_left_peripheral
-  - board: eyelash_sofle_right
+  - board: alliecat_keeb_right
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebR\""
     artifact-name: alliecatkeeb_right_peripheral
 
   # Settings reset utilities
-  - board: eyelash_sofle_left
+  - board: alliecat_keeb_left
     shield: settings_reset
     artifact-name: settings_reset_left
-  - board: eyelash_sofle_right
+  - board: alliecat_keeb_right
     shield: settings_reset
     artifact-name: settings_reset_right
   - board: nice_nano_v2

@@ -2,12 +2,12 @@
 # Reset Firmware Build Configuration
 include:
   # Settings reset for left half
-  - board: eyelash_sofle_left
+  - board: alliecat_keeb_left
     shield: settings_reset
     artifact-name: settings_reset_left
 
   # Settings reset for right half
-  - board: eyelash_sofle_right
+  - board: alliecat_keeb_right
     shield: settings_reset
     artifact-name: settings_reset_right
 

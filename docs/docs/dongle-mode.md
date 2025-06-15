@@ -1,6 +1,6 @@
 # Dongle Mode Guide
 
-The Eyelash Sofle supports a unique **dongle mode** that allows you to use your wireless split keyboard with devices that don't have Bluetooth, or in environments where Bluetooth connections are restricted.
+The AllieCat Sofle supports a unique **dongle mode** that allows you to use your wireless split keyboard with devices that don't have Bluetooth, or in environments where Bluetooth connections are restricted.
 
 ## 🎯 What is Dongle Mode?
 

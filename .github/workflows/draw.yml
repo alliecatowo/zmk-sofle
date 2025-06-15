@@ -27,7 +27,7 @@ jobs:
       - name: Parse and draw keymap
         run: |
           mkdir -p keymap-drawer
-          keymap parse -z config/alliecatkeeb.keymap > keymap.yaml
+          keymap parse -z config/alliecat_keeb.keymap > keymap.yaml
           keymap draw keymap.yaml --config-file keymap_drawer.config.yaml -o keymap-drawer/sofle.svg
 
       - name: Commit changes

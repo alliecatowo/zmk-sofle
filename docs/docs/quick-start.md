@@ -1,11 +1,11 @@
 # Quick Start Guide
 
-Get your ZMK Eyelash Sofle keyboard up and running in minutes! This guide covers the essential steps to start using your keyboard.
+Get your ZMK AllieCat Sofle keyboard up and running in minutes! This guide covers the essential steps to start using your keyboard.
 
 ## 📦 What You Need
 
 ### Required Items
-- Eyelash Sofle keyboard (left and right halves)
+- AllieCat Sofle keyboard (left and right halves)
 - 2x Nice!Nano controllers (or compatible)
 - 2x Nice!View displays (optional but recommended)
 - USB-C cable
@@ -25,7 +25,7 @@ Get your ZMK Eyelash Sofle keyboard up and running in minutes! This guide covers
 ### Step 2: Initial Pairing
 1. **Put left half in pairing mode**: Press `Reset` button or use the reset key combination
 2. **Open Bluetooth settings** on your computer/device
-3. **Look for "Eyelash Sofle"** in available devices
+3. **Look for "AllieCat Sofle"** in available devices
 4. **Connect** to establish the initial pairing
 
 ### Step 3: Verify Connection

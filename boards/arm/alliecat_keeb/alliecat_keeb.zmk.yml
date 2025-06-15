@@ -1,6 +1,6 @@
 file_format: "1"
-id: eyelash_sofle
-name: Eyelash Sofle
+id: alliecat_keeb
+name: AllieCatKeeb
 url: https://github.com/a741725193/zmk-sofle
 type: board
 arch: arm
@@ -10,6 +10,11 @@ features:
 outputs:
   - usb
   - ble
+supported:
+  - shield
+  - display
+  - underglow
+  - encoder
 siblings:
-  - eyelash_sofle_left
-  - eyelash_sofle_right
+  - alliecat_keeb_left
+  - alliecat_keeb_right

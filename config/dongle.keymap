@@ -26,7 +26,7 @@
         events = <0>;
     };
 
-    // Matrix transform from eyelash_sofle
+    // Matrix transform from alliecat_keeb
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <14>;
@@ -97,3 +97,12 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) 
         prechargep = <0x22>;
     };
 };
+
+&msc {
+    acceleration-exponent = <1>;
+    time-to-max-speed-ms = <100>;
+    delay-ms = <0>;
+};
+
+// Matrix transform from alliecat_keeb
+#include "alliecat_keeb.keymap"

@@ -1,6 +1,6 @@
-# ZMK Eyelash Sofle Documentation
+# ZMK AllieCat Sofle Documentation
 
-Welcome to the documentation for the ZMK Eyelash Sofle keyboard firmware.
+Welcome to the documentation for the ZMK AllieCat Sofle keyboard firmware.
 
 ## 📚 Documentation Index
 

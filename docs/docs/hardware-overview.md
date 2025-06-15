@@ -1,6 +1,6 @@
 # Hardware Overview
 
-The ZMK Eyelash Sofle is a wireless split ergonomic keyboard featuring 58 keys, RGB underglow, OLED displays, and a rotary encoder. This document provides comprehensive information about the hardware components, specifications, and technical details.
+The ZMK AllieCat Sofle is a wireless split ergonomic keyboard featuring 58 keys, RGB underglow, OLED displays, and a rotary encoder. This document provides comprehensive information about the hardware components, specifications, and technical details.
 
 ## 🔧 Core Components
 

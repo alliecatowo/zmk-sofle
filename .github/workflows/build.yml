@@ -36,8 +36,8 @@ jobs:
           ## Standard Mode (Left Side Master)
 
           1. **Flash the firmware:**
-             - Left half: `eyelash_sofle_studio_left.uf2` (with ZMK Studio support)
-             - Right half: `eyelash_sofle_standard_right.uf2`
+             - Left half: `alliecat_keeb_studio_left.uf2` (with ZMK Studio support)
+             - Right half: `alliecat_keeb_standard_right.uf2`
 
           2. **Pairing process:**
              - Power on the left half first (master)
