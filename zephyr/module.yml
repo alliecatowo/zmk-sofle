@@ -1,5 +1,5 @@
 build:
-  cmake-ext: true
-  kconfig-ext: true
-  board-root: .
-  dts-root: .
+  cmake_ext: true
+  kconfig_ext: true
+  board_root: .
+  dts_root: .
