@@ -9,10 +9,12 @@ include:
 
   # Left half peripheral for dongle mode
   - board: alliecat_keeb_left
-    shield: alliecat_keeb_peripheral dongle_peripheral
+    shield: dongle_display
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_left
 
   # Right half peripheral for dongle mode
   - board: alliecat_keeb_right
-    shield: alliecat_keeb_peripheral dongle_peripheral
+    shield: dongle_display
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_right

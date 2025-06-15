@@ -17,14 +17,16 @@ include:
     cmake-args: -DCONFIG_ZMK_KEYBOARD_NAME='"AllieCatKeeb"' -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
     artifact-name: alliecatkeeb_dongle_central
 
-  # Peripheral halves for dongle mode
+  # Peripheral halves for dongle mode (temporarily using just dongle_display until we create alliecat_keeb_peripheral)
   - board: alliecat_keeb_left
-    shield: alliecat_keeb_peripheral dongle_peripheral
+    shield: dongle_display
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_left
 
   # Right half peripheral for dongle mode
   - board: alliecat_keeb_right
-    shield: alliecat_keeb_peripheral dongle_peripheral
+    shield: dongle_display
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_right
 
   # Settings reset
