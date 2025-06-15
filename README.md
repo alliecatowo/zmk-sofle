@@ -170,15 +170,23 @@ The dongle firmware uses the excellent [zmk-dongle-display module](https://githu
 
 ## Flashing Instructions
 
-You can find pre-built firmware files ready for flashing in the "Artifacts" section of the latest GitHub Actions build run.
+For the most reliable setup, it is highly recommended to first flash the `settings_reset` firmware to clear any old pairing data, and then flash the main firmware in the correct order.
 
-1.  **Reset to Bootloader**: Double-tap the reset button on the PCB.
-2.  **Flash Firmware**: Drag and drop the appropriate `.uf2` file onto the `NICENANO` or `XIAO` drive that appears.
-    *   `alliecatkeeb_left_peripheral.uf2` -> Left Half
-    *   `alliecatkeeb_right_peripheral.uf2` -> Right Half
-    *   `alliecatkeeb_dongle_central.uf2` -> Dongle
+### Step 1: Reset All Devices (Recommended)
 
-If you encounter issues, flash the `settings_reset.uf2` firmware to all devices first, then flash the main firmware.
+1.  Put your **Dongle** into bootloader mode (double-tap the reset button).
+2.  Copy the `settings_reset_dongle.uf2` file to the drive that appears.
+3.  Repeat this process for the **Left** and **Right** halves, using `settings_reset_left.uf2` and `settings_reset_right.uf2` respectively.
+
+### Step 2: Flash Main Firmware in Order
+
+After resetting, flash the main firmware. **The order is important.**
+
+1.  **Flash Dongle First**: Put the dongle in bootloader mode and copy `alliecatkeeb_dongle_central.uf2` to it. The dongle must be running first to accept connections from the keyboard halves.
+2.  **Flash Left Half**: Put the left half in bootloader mode and copy `alliecatkeeb_left_peripheral.uf2`.
+3.  **Flash Right Half**: Put the right half in bootloader mode and copy `alliecatkeeb_right_peripheral.uf2`.
+
+Once flashed, the halves will automatically connect to the dongle.
 
 ## Repository Management
 
