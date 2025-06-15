@@ -28,7 +28,9 @@ git push origin main
 echo "Build triggered successfully!"
 echo ""
 echo "Next steps:"
-echo "1. Go to: https://github.com/$(git config --get remote.origin.url | sed 's/.*github.com[:/]\([^/]*\/[^/.]*\).*/\1/')/actions"
+REPO_URL=$(git config --get remote.origin.url)
+REPO_PATH=$(echo "$REPO_URL" | sed 's/.*github.com[:/]\([^/]*\/[^/.]*\).*/\1/')
+echo "1. Go to: https://github.com/$REPO_PATH/actions"
 echo "2. Wait for the build to complete (usually 2-3 minutes)"
 echo "3. Download the firmware from the Artifacts section"
 echo ""

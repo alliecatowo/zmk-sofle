@@ -1,6 +1,6 @@
 # Summary
 
-- [Introduction](../README.md)
+- [Introduction](introduction.md)
 - [Quick Start Guide](quick-start.md)
 - [Hardware Overview](hardware-overview.md)
 - [Building Firmware](building-firmware.md)

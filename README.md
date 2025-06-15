@@ -137,3 +137,40 @@ This project inherits the licenses of its components:
 ---
 
 **Need help?** Check the [documentation](docs/) or open an issue!
+
+## Dongle Display
+
+The dongle firmware uses the excellent [zmk-dongle-display module](https://github.com/englmaxi/zmk-dongle-display) by `englmaxi`. This provides a rich status screen with widgets for:
+
+*   Active HID indicators (Caps/Num/Scroll Lock)
+*   Active key modifiers
+*   Bongo Cat (because why not?)
+*   Highest active layer name
+*   Output status (USB/Bluetooth)
+*   Peripheral battery levels
+
+## Resources
+
+*   **ZMK Documentation**: For firmware customization and feature information, refer to the [official ZMK documentation](https://zmk.dev/docs).
+*   **Sofle Keyboard**: Learn more about the original keyboard design [here](https://josefadamcik.github.io/SofleKeyboard/).
+
+## Flashing Instructions
+
+You can find pre-built firmware files ready for flashing in the "Artifacts" section of the latest GitHub Actions build run.
+
+1.  **Reset to Bootloader**: Double-tap the reset button on the PCB.
+2.  **Flash Firmware**: Drag and drop the appropriate `.uf2` file onto the `NICENANO` or `XIAO` drive that appears.
+    *   `alliecatkeeb_left_peripheral.uf2` -> Left Half
+    *   `alliecatkeeb_right_peripheral.uf2` -> Right Half
+    *   `alliecatkeeb_dongle_central.uf2` -> Dongle
+
+If you encounter issues, flash the `settings_reset.uf2` firmware to all devices first, then flash the main firmware.
+
+## Repository Management
+
+This repository is set up with automated workflows for:
+
+*   **Building Firmware**: Triggered on push to `main` or manually.
+*   **Keymap Diagram**: Automatically updates on changes to `*.keymap`.
+*   **Changelog Generation**: Creates a `CHANGELOG.md` upon release.
+*   **Wiki Publishing**: Syncs the `docs/` folder to the GitHub Wiki.
