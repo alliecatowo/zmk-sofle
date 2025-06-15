@@ -1,20 +1,20 @@
 ---
 # Dongle Mode Build Configuration (3 Firmware Files)
 include:
-  # Dongle central device with display
-  - board: alliecat_keeb_left
-    shield: nice_view
+  # Dongle central device with display (nice_nano_v2 + dongle_display)
+  - board: nice_nano_v2
+    shield: dongle_display
     cmake-args: -DCONFIG_ZMK_KEYBOARD_NAME='"AllieCatKeeb"' -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
     artifact-name: alliecatkeeb_dongle_central
 
-  # Left half peripheral for dongle mode
+  # Left half peripheral for dongle mode (alliecat_keeb board + peripheral shield)
   - board: alliecat_keeb_left
-    shield: dongle_display
+    shield: alliecat_keeb_peripheral
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_left
 
-  # Right half peripheral for dongle mode
+  # Right half peripheral for dongle mode (alliecat_keeb board + peripheral shield)
   - board: alliecat_keeb_right
-    shield: dongle_display
+    shield: alliecat_keeb_peripheral
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: alliecatkeeb_dongle_peripheral_right

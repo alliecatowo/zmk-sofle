@@ -1,0 +1,13 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&zmk_kscan_debounce_press_ms {
+    status = "okay";
+};
+
+&zmk_kscan_debounce_release_ms {
+    status = "okay";
+};
