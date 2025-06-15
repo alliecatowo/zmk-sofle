@@ -1,0 +1,17 @@
+---
+# Reset Firmware Build Configuration
+include:
+  # Settings reset for left half
+  - board: eyelash_sofle_left
+    shield: settings_reset
+    artifact-name: settings_reset_left
+
+  # Settings reset for right half
+  - board: eyelash_sofle_right
+    shield: settings_reset
+    artifact-name: settings_reset_right
+
+  # Settings reset for dongle
+  - board: nice_nano_v2
+    shield: settings_reset
+    artifact-name: settings_reset_dongle
