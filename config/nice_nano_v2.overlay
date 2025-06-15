@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&spi1 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    sck-pin = <36>;  // P1.04
+    mosi-pin = <38>; // P1.06
+    cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+
+    nice_view_spi: nice_view_spi {
+        compatible = "nordic,nrf-spim";
+        status = "okay";
+
+        cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+
+        // Indicate the pins to use for the SPI lines
+        sck-pin = <36>;  // P1.04
+        mosi-pin = <38>; // P1.06
+        // miso-pin not connected
+    };
+};
