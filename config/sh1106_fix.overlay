@@ -1,0 +1,12 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&display {
+	compatible = "sinowealth,sh1106";
+	width = <128>;
+	height = <64>;
+	segment-offset = <2>;
+};
