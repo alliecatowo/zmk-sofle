@@ -3,8 +3,8 @@
 include:
   # Dongle central device with display
   - board: nice_nano_v2
-    shield: alliecat_dongle
-    cmake-args: -DCONFIG_ZMK_KEYBOARD_NAME='"AllieCatKeeb"' -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
+    shield: nice_view
+    cmake-args: -DCONFIG_ZMK_KEYBOARD_NAME='"AllieCatKeeb"' -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7 -DCONFIG_ZMK_DISPLAY_DONGLE_BATTERY=y -DCONFIG_ZMK_DISPLAY_DONGLE_MAC_MODIFIERS=y
     artifact-name: alliecatkeeb_dongle_central
 
   # Left half peripheral for dongle mode

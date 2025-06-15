@@ -1,4 +1,0 @@
-# SPDX-License-Identifier: MIT
-
-config SHIELD_ALLIECAT_DONGLE
-    def_bool $(shields_list_contains,alliecat_dongle)
