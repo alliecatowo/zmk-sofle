@@ -3,23 +3,16 @@
 include:
   # Dongle central device with display
   - board: nice_nano_v2
-    shield: dongle_display
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7 -DCONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY=y -DCONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y -DDTS_EXTRA_OVERLAY_FILE=config/sh1106_fix.overlay
+    shield: alliecat_dongle
+    cmake-args: -DCONFIG_ZMK_KEYBOARD_NAME='"AllieCatKeeb"' -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
     artifact-name: alliecatkeeb_dongle_central
 
   # Left half peripheral for dongle mode
   - board: alliecat_keeb_left
-    shield: nice_view
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebL\""
-    artifact-name: alliecatkeeb_left_peripheral
+    shield: alliecat_keeb_peripheral dongle_peripheral
+    artifact-name: alliecatkeeb_dongle_peripheral_left
 
   # Right half peripheral for dongle mode
   - board: alliecat_keeb_right
-    shield: nice_view
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_BT_DEVICE_NAME="\"AllieCatKeebR\""
-    artifact-name: alliecatkeeb_right_peripheral
-
-  # Dongle peripheral
-  - board: alliecat_keeb_dongle
-    shield:
-      - dongle_display
+    shield: alliecat_keeb_peripheral dongle_peripheral
+    artifact-name: alliecatkeeb_dongle_peripheral_right

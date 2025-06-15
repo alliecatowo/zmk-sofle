@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+&i2c0 {
+	status = "okay";
+
+	sh1106: sh1106@3c {
+		compatible = "sinowealth,sh1106";
+		reg = <0x3c>;
+		label = "DISPLAY";
+		height = <64>;
+		width = <128>;
+		segment_remap;
+		com_invdir;
+		precharge = <242>;
+	};
+};
