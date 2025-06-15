@@ -1,23 +1,20 @@
-# AllieCatKeeb Sofle ZMK Firmware
+# Welcome to the AllieCatKeeb Wiki!
 
-[![Build Status](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml/badge.svg)](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml)
-[![GitBook](https://img.shields.io/badge/Documentation-GitBook-blue)](https://app.gitbook.com/o/3H4WaN1tEms6khZUHFAb/s/rPqJa63N36I6Y3X2pLjt/)
-[![GitHub Wiki](https://img.shields.io/badge/Documentation-Wiki-blue)](https://github.com/alliecatowo/zmk-sofle/wiki)
+This documentation serves as the comprehensive guide for the AllieCatKeeb, a custom Sofle keyboard running ZMK firmware.
 
-This repository contains the ZMK firmware and configuration for the **AllieCatKeeb**, a custom-built Sofle split keyboard.
+Whether you're looking to build your own, flash the firmware, or customize the keymap, you'll find everything you need right here.
 
-## Documentation
+## Getting Started
 
-For full details on flashing, configuration, and hardware, please see our official documentation:
+*   **[Quick Start Guide](quick-start.md)**: The fastest way to get your keyboard up and running.
+*   **[Hardware Overview](hardware-overview.md)**: Details about the components used in this build.
+*   **[Building Firmware](building-firmware.md)**: A guide to building the firmware from source.
 
-*   **[Read the GitBook](https://app.gitbook.com/o/3H4WaN1tEms6khZUHFAb/s/rPqJa63N36I6Y3X2pLjt/)**
-*   **[Explore the GitHub Wiki](https://github.com/alliecatowo/zmk-sofle/wiki)**
+## Key Resources
 
-The documentation is managed in the `/docs` directory of this repository.
-
-## Quick Flash
-
-Pre-built firmware can be downloaded from the **Artifacts** section of the latest [GitHub Actions build run](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml).
+*   **[Official ZMK Docs](https://zmk.dev/docs)**: The definitive resource for the ZMK firmware.
+*   **[Sofle Keyboard Project](https://josefadamcik.github.io/SofleKeyboard/)**: The original design that inspired this keyboard.
+*   **[Dongle Display Module](https://github.com/englmaxi/zmk-dongle-display)**: The custom display used for the receiver dongle.
 
 ## 🚀 Quick Start
 
