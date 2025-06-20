@@ -7,10 +7,6 @@
 
 #include "eyelash_sofle.dtsi"
 
-&kscan0 {
-    status = "disabled";
-};
-
 /{
     chosen {
         zmk,kscan = &mock_kscan;
