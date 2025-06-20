@@ -1,25 +1,23 @@
 ---
 include:
   # Standard split keyboard mode (left master, right peripheral)
+  # ZMK Studio enabled by default in all firmware
 
   # Left half (master) with ZMK Studio support
   - board: eyelash_sofle_left
     shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-    artifact-name: eyelash_sofle_studio_left
+    artifact-name: eyelash_sofle_left
 
-  # Right half (peripheral)
+  # Right half (peripheral) with ZMK Studio support
   - board: eyelash_sofle_right
     shield: nice_view_custom
-    artifact-name: eyelash_sofle_standard_right
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+    artifact-name: eyelash_sofle_right
 
-  # Settings reset firmware for left half
+  # Universal settings reset firmware (works for all boards)
   - board: eyelash_sofle_left
     shield: settings_reset
-    artifact-name: eyelash_sofle_settings_reset_left
-
-  # Settings reset firmware for right half
-  - board: eyelash_sofle_right
-    shield: settings_reset
-    artifact-name: eyelash_sofle_settings_reset_right
+    artifact-name: settings_reset

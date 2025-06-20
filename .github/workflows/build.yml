@@ -43,11 +43,13 @@ jobs:
           cat > pairing-instructions/PAIRING_INSTRUCTIONS.md << 'EOF'
           # ZMK Eyelash Sofle Keyboard Pairing Instructions
 
+          **All firmware includes ZMK Studio support by default!**
+
           ## Standard Mode (Left Side Master)
 
           1. **Flash the firmware:**
-             - Left half: `eyelash_sofle_studio_left.uf2` (with ZMK Studio support)
-             - Right half: `eyelash_sofle_standard_right.uf2`
+             - Left half: `eyelash_sofle_left.uf2` (master with ZMK Studio)
+             - Right half: `eyelash_sofle_right.uf2` (peripheral with ZMK Studio)
 
           2. **Pairing process:**
              - Power on the left half first (master)
@@ -58,9 +60,9 @@ jobs:
           ## Dongle Mode (Unified Receiver)
 
           1. **Flash the firmware in this exact order:**
-             - Dongle: `eyelash_sofle_dongle_central.uf2`
-             - Left half: `eyelash_sofle_dongle_peripheral_left.uf2`
-             - Right half: `eyelash_sofle_dongle_peripheral_right.uf2`
+             - Dongle: `eyelash_sofle_dongle.uf2` (central with ZMK Studio)
+             - Left half: `eyelash_sofle_left_peripheral.uf2` (peripheral with ZMK Studio)
+             - Right half: `eyelash_sofle_right_peripheral.uf2` (peripheral with ZMK Studio)
 
           2. **Bonding process:**
              - Plug in the dongle to your computer
@@ -71,10 +73,8 @@ jobs:
           ## Troubleshooting
 
           If pairing fails:
-          1. Flash the settings reset firmware to all devices:
-             - `eyelash_sofle_settings_reset_left.uf2`
-             - `eyelash_sofle_settings_reset_right.uf2`
-             - `eyelash_sofle_settings_reset_dongle.uf2` (if using dongle mode)
+          1. Flash the universal settings reset firmware to ALL devices:
+             - Use `settings_reset.uf2` on left, right, and dongle (same file works for all)
           2. Re-flash the appropriate firmware
           3. Try the pairing process again
 
@@ -84,9 +84,13 @@ jobs:
           - Off: Sleeping or battery dead
 
           ## Build Types Available
-          - **Standard Mode**: Use "Run workflow" → "standard" for traditional split keyboard
-          - **Dongle Mode**: Use "Run workflow" → "dongle" for wireless dongle setup
-          - **Reset Only**: Use "Run workflow" → "reset-only" for settings reset firmware only
+          - **Standard Mode**: Traditional split keyboard (left master, right peripheral)
+          - **Dongle Mode**: Wireless dongle setup (central + 2 peripherals)  
+          - **Reset Only**: Universal settings reset firmware for troubleshooting
+
+          ## ZMK Studio
+          All firmware includes ZMK Studio support by default - no separate "studio" versions needed!
+          Connect via USB to any device to configure your keymap.
           EOF
 
       - name: Upload Pairing Instructions

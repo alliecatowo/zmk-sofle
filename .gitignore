@@ -1,5 +1,14 @@
+*.uf2
+*.map
 build/
-zmk/
-modules/
-tools/
 .west/
+zephyr/
+modules/
+.venv/
+.DS_Store
+node_modules/
+*.log
+.cache/
+.tmp/
+**/.tmp/
+**/build/
