@@ -1,6 +1,6 @@
 ---
 include:
-  # Dongle mode (central receiver + 2 peripherals)
+  # Dongle mode (dongle central + left peripheral + right peripheral)
   # ZMK Studio enabled by default in all firmware
 
   # Dongle (central receiver) with ZMK Studio support

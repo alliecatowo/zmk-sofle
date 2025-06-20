@@ -45,19 +45,22 @@ jobs:
 
           **All firmware includes ZMK Studio support by default!**
 
-          ## Standard Mode (Left Side Master)
+          ## 🔥 Two Firmware Batches Available
+
+          ### **Batch 1: Standard Mode** 
+          Complete set: `eyelash_sofle_left.uf2` + `eyelash_sofle_right.uf2` + `settings_reset.uf2`
 
           1. **Flash the firmware:**
-             - Left half: `eyelash_sofle_left.uf2` (master with ZMK Studio)
+             - Left half: `eyelash_sofle_left.uf2` (central/master with ZMK Studio)
              - Right half: `eyelash_sofle_right.uf2` (peripheral with ZMK Studio)
 
           2. **Pairing process:**
-             - Power on the left half first (master)
+             - Power on the left half first (central)
              - Power on the right half
              - They should automatically pair within 30 seconds
-             - If not, press the reset button on both halves
 
-          ## Dongle Mode (Unified Receiver)
+          ### **Batch 2: Dongle Mode**
+          Complete set: `eyelash_sofle_dongle.uf2` + `eyelash_sofle_left_peripheral.uf2` + `eyelash_sofle_right_peripheral.uf2` + `settings_reset.uf2`
 
           1. **Flash the firmware in this exact order:**
              - Dongle: `eyelash_sofle_dongle.uf2` (central with ZMK Studio)
@@ -84,8 +87,8 @@ jobs:
           - Off: Sleeping or battery dead
 
           ## Build Types Available
-          - **Standard Mode**: Traditional split keyboard (left master, right peripheral)
-          - **Dongle Mode**: Wireless dongle setup (central + 2 peripherals)  
+          - **Standard Mode**: Complete batch for traditional split keyboard (left central + right peripheral)
+          - **Dongle Mode**: Complete batch for wireless dongle setup (dongle central + 2 peripherals)  
           - **Reset Only**: Universal settings reset firmware for troubleshooting
 
           ## ZMK Studio
