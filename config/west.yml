@@ -10,6 +10,7 @@ manifest:
       url-base: https://github.com/GPeye
     - name: englmaxi
       url-base: https://github.com/englmaxi
+
   projects:
     - name: mario-peripheral-animation
       remote: gpeye

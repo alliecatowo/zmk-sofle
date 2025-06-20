@@ -12,14 +12,14 @@
 };
 
 &pinctrl {
-    i2c0_default: i2c0_default {
+    i2c1_default: i2c1_default {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 24)>,
                     <NRF_PSEL(TWIM_SCL, 0, 11)>;
         };
     };
 
-    i2c0_sleep: i2c0_sleep {
+    i2c1_sleep: i2c1_sleep {
         group1 {
             psels = <NRF_PSEL(TWIM_SDA, 0, 24)>,
                     <NRF_PSEL(TWIM_SCL, 0, 11)>;
@@ -28,18 +28,18 @@
     };
 };
 
-pro_micro_i2c: &i2c0 {
+pro_micro_i2c: &i2c1 {
     status = "okay";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
     pinctrl-names = "default", "sleep";
 
     oled: ssd1306@3c {
-        compatible = "sinowealth,sh1106";
+        compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
         width = <128>;
         height = <64>;
-        segment-offset = <2>;
+        segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>;
         multiplex-ratio = <63>;
@@ -52,6 +52,7 @@ pro_micro_i2c: &i2c0 {
 /{
     chosen {
         zmk,kscan = &mock_kscan;
+        zephyr,display = &oled;
     };
     mock_kscan: kscan_1 {
         compatible = "zmk,kscan-mock";
