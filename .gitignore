@@ -3,6 +3,7 @@
 build/
 .west/
 zephyr/
+!zephyr/module.yml
 modules/
 .venv/
 .DS_Store
