@@ -12,3 +12,5 @@ node_modules/
 .tmp/
 **/.tmp/
 **/build/zmk/
+mario-peripheral-animation/
+zmk/
