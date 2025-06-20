@@ -5,9 +5,10 @@ on:
       build_type:
         description: 'Firmware build type'
         required: true
-        default: 'standard'
+        default: 'all'
         type: choice
         options:
+        - all
         - standard
         - dongle
         - reset-only
@@ -25,80 +26,196 @@ on:
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      build_matrix_path: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'standard') && 'build-standard.yaml' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'dongle') && 'build-dongle.yaml' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'reset-only') && 'build-reset.yaml' || 'build.yaml' }}
+    runs-on: ubuntu-latest
+    name: Build ZMK Firmware
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Standard Mode builds
+          - board: eyelash_sofle_left
+            shield: nice_view
+            snippet: studio-rpc-usb-uart
+            cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
+            artifact-name: eyelash_sofle_left
+            build-type: standard
+          - board: eyelash_sofle_right
+            shield: nice_view_custom
+            snippet: studio-rpc-usb-uart
+            cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+            artifact-name: eyelash_sofle_right
+            build-type: standard
+          
+          # Dongle Mode builds
+          - board: eyelash_sofle_dongle
+            shield: nice_view
+            snippet: studio-rpc-usb-uart
+            cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
+            artifact-name: eyelash_sofle_dongle
+            build-type: dongle
+          - board: eyelash_sofle_left
+            shield: nice_view_custom
+            snippet: studio-rpc-usb-uart
+            cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+            artifact-name: eyelash_sofle_left_peripheral
+            build-type: dongle
+          - board: eyelash_sofle_right
+            shield: nice_view_custom
+            snippet: studio-rpc-usb-uart
+            cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+            artifact-name: eyelash_sofle_right_peripheral
+            build-type: dongle
+          
+          # Settings reset (universal)
+          - board: eyelash_sofle_left
+            shield: settings_reset
+            cmake-args: ""
+            artifact-name: settings_reset
+            build-type: reset
 
-  generate-pairing-info:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-zephyr-modules
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr export
+        run: west zephyr-export
+
+      - name: West Build (${{ matrix.artifact-name }})
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        run: |
+          if [ -n "${{ matrix.snippet }}" ]; then
+            SNIPPET_ARG="-S ${{ matrix.snippet }}"
+          else
+            SNIPPET_ARG=""
+          fi
+          
+          west build -s zmk/app -d build/${{ matrix.artifact-name }} -b ${{ matrix.board }} $SNIPPET_ARG -- \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+            -DSHIELD="${{ matrix.shield }}" \
+            -DBOARD_ROOT="${GITHUB_WORKSPACE}" \
+            ${{ matrix.cmake-args }}
+
+      - name: Rename artifacts
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        run: |
+          mkdir -p artifacts
+          if [ -f "build/${{ matrix.artifact-name }}/zephyr/zmk.uf2" ]; then
+            cp "build/${{ matrix.artifact-name }}/zephyr/zmk.uf2" "artifacts/${{ matrix.artifact-name }}.uf2"
+          fi
+
+      - name: Upload individual artifacts
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: artifacts/${{ matrix.artifact-name }}.uf2
+          retention-days: 60
+
+  package-firmware:
     runs-on: ubuntu-latest
     needs: build
     if: always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.build_type != 'reset-only')
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Generate Pairing Instructions
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-artifacts
+
+      - name: Create firmware packages
         run: |
-          mkdir -p pairing-instructions
-
-          cat > pairing-instructions/PAIRING_INSTRUCTIONS.md << 'EOF'
+          mkdir -p packages/standard-mode packages/dongle-mode
+          
+          # Create pairing instructions
+          cat > PAIRING_INSTRUCTIONS.md << 'EOF'
           # ZMK Eyelash Sofle Keyboard Pairing Instructions
-
+          
           **All firmware includes ZMK Studio support by default!**
-
-          ## 🔥 Two Firmware Batches Available
-
-          ### **Batch 1: Standard Mode** 
-          Complete set: `eyelash_sofle_left.uf2` + `eyelash_sofle_right.uf2` + `settings_reset.uf2`
-
-          1. **Flash the firmware:**
-             - Left half: `eyelash_sofle_left.uf2` (central/master with ZMK Studio)
-             - Right half: `eyelash_sofle_right.uf2` (peripheral with ZMK Studio)
-
-          2. **Pairing process:**
-             - Power on the left half first (central)
-             - Power on the right half
-             - They should automatically pair within 30 seconds
-
-          ### **Batch 2: Dongle Mode**
-          Complete set: `eyelash_sofle_dongle.uf2` + `eyelash_sofle_left_peripheral.uf2` + `eyelash_sofle_right_peripheral.uf2` + `settings_reset.uf2`
-
-          1. **Flash the firmware in this exact order:**
-             - Dongle: `eyelash_sofle_dongle.uf2` (central with ZMK Studio)
-             - Left half: `eyelash_sofle_left_peripheral.uf2` (peripheral with ZMK Studio)
-             - Right half: `eyelash_sofle_right_peripheral.uf2` (peripheral with ZMK Studio)
-
-          2. **Bonding process:**
-             - Plug in the dongle to your computer
-             - Power on the left half - wait for it to connect (LED will stop blinking)
-             - Power on the right half - wait for it to connect
-             - All three devices are now bonded!
-
+          
+          ## Standard Mode Package
+          **Files:** eyelash_sofle_left.uf2 + eyelash_sofle_right.uf2 + settings_reset.uf2
+          
+          1. Flash left half: eyelash_sofle_left.uf2 (central/master)
+          2. Flash right half: eyelash_sofle_right.uf2 (peripheral)  
+          3. Power on left first, then right - they will auto-pair
+          
+          ## Dongle Mode Package  
+          **Files:** eyelash_sofle_dongle.uf2 + eyelash_sofle_left_peripheral.uf2 + eyelash_sofle_right_peripheral.uf2 + settings_reset.uf2
+          
+          1. Flash dongle: eyelash_sofle_dongle.uf2 (central)
+          2. Flash left half: eyelash_sofle_left_peripheral.uf2 (peripheral)
+          3. Flash right half: eyelash_sofle_right_peripheral.uf2 (peripheral)
+          4. Plug in dongle, then power on left and right halves
+          
           ## Troubleshooting
-
-          If pairing fails:
-          1. Flash the universal settings reset firmware to ALL devices:
-             - Use `settings_reset.uf2` on left, right, and dongle (same file works for all)
-          2. Re-flash the appropriate firmware
-          3. Try the pairing process again
-
-          ## LED Indicators
-          - Blinking: Searching for connection
-          - Solid: Connected
-          - Off: Sleeping or battery dead
-
-          ## Build Types Available
-          - **Standard Mode**: Complete batch for traditional split keyboard (left central + right peripheral)
-          - **Dongle Mode**: Complete batch for wireless dongle setup (dongle central + 2 peripherals)  
-          - **Reset Only**: Universal settings reset firmware for troubleshooting
-
+          If pairing fails, flash settings_reset.uf2 to ALL devices, then re-flash firmware.
+          
           ## ZMK Studio
-          All firmware includes ZMK Studio support by default - no separate "studio" versions needed!
-          Connect via USB to any device to configure your keymap.
+          All firmware includes ZMK Studio - connect via USB to configure keymap.
           EOF
+          
+          # Package standard mode
+          if [ -d "all-artifacts/eyelash_sofle_left" ] && [ -d "all-artifacts/eyelash_sofle_right" ]; then
+            cp all-artifacts/eyelash_sofle_left/*.uf2 packages/standard-mode/
+            cp all-artifacts/eyelash_sofle_right/*.uf2 packages/standard-mode/
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/standard-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/standard-mode/
+          fi
+          
+          # Package dongle mode  
+          if [ -d "all-artifacts/eyelash_sofle_dongle" ]; then
+            cp all-artifacts/eyelash_sofle_dongle/*.uf2 packages/dongle-mode/
+            if [ -d "all-artifacts/eyelash_sofle_left_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_left_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/eyelash_sofle_right_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_right_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/dongle-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/dongle-mode/
+          fi
 
-      - name: Upload Pairing Instructions
+      - name: Upload Standard Mode Package
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || github.event.inputs.build_type == 'standard' }}
         uses: actions/upload-artifact@v4
         with:
-          name: pairing-instructions
-          path: pairing-instructions/
+          name: standard-mode-firmware
+          path: packages/standard-mode/
+          retention-days: 60
+
+      - name: Upload Dongle Mode Package  
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || github.event.inputs.build_type == 'dongle' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dongle-mode-firmware
+          path: packages/dongle-mode/
           retention-days: 60
