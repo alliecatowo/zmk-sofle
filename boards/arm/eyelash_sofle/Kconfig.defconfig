@@ -16,7 +16,7 @@ endif # BOARD_EYELASH_SOFLE_LEFT
 if BOARD_EYELASH_SOFLE_DONGLE
 
 config ZMK_KEYBOARD_NAME
-    default "Eyelash Sofle Dongle"
+    default "Sofle Dongle"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
@@ -37,8 +37,8 @@ config BOARD_ENABLE_DCDC
 
 config BOARD_ENABLE_DCDC_HV
     bool "Enable High Voltage DCDC converter"
-    default y
     select SOC_DCDC_NRF52X_HV
+    default y
     depends on (BOARD_EYELASH_SOFLE_LEFT || BOARD_EYELASH_SOFLE_RIGHT || BOARD_EYELASH_SOFLE_DONGLE)
 
 config ZMK_SPLIT
