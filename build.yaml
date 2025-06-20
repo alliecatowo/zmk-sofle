@@ -16,9 +16,9 @@ include:
 
   # DONGLE MODE - Dongle central + Left peripheral + Right peripheral
 
-  # Dongle (central receiver with Studio support + BONGO CAT!)
+  # Dongle (central receiver with Studio support - TEST WITH NICE_VIEW FIRST)
   - board: eyelash_sofle_dongle
-    shield: dongle_display
+    shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7 -DCONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY=y
     artifact-name: sofle_dongle_central
