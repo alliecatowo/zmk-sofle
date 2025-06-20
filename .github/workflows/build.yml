@@ -1,10 +1,215 @@
-name: Build ZMK firmware
+name: Build ZMK Firmware
 on:
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Firmware build type'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - standard
+        - dongle
+        - reset-only
   push:
-    paths-ignore:
-      - "keymap-drawer/**"
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'boards/**'
+      - 'zephyr/**'
+      - '**.keymap'
+      - '.github/workflows/build.yml'
+      - 'build.yaml'
+      - 'build-*.yaml'
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    name: Build ZMK Firmware
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Standard Mode builds
+          - board: eyelash_sofle_left
+            shield: nice_view
+            cmake-args: ""
+            artifact-name: eyelash_sofle_left
+            build-type: standard
+          - board: eyelash_sofle_right
+            shield: nice_view_custom
+            cmake-args: ""
+            artifact-name: eyelash_sofle_right
+            build-type: standard
+          
+          # Dongle Mode builds
+          - board: eyelash_sofle_dongle
+            shield: nice_view
+            cmake-args: ""
+            artifact-name: eyelash_sofle_dongle
+            build-type: dongle
+          - board: eyelash_sofle_left
+            shield: nice_view_custom
+            cmake-args: ""
+            artifact-name: eyelash_sofle_left_peripheral
+            build-type: dongle
+          - board: eyelash_sofle_right
+            shield: nice_view_custom
+            cmake-args: ""
+            artifact-name: eyelash_sofle_right_peripheral
+            build-type: dongle
+          
+          # Settings reset (universal)
+          - board: eyelash_sofle_left
+            shield: settings_reset
+            cmake-args: ""
+            artifact-name: settings_reset
+            build-type: reset
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install west
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-zephyr-modules
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: West Init
+        run: west init -l config
+
+      - name: West Update
+        run: west update
+
+      - name: West Zephyr export
+        run: west zephyr-export
+
+      - name: West Build (${{ matrix.artifact-name }})
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        run: |
+          west build -s zmk/app -d build/${{ matrix.artifact-name }} -b ${{ matrix.board }} -- \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" \
+            -DSHIELD="${{ matrix.shield }}" \
+            -DBOARD_ROOT="${GITHUB_WORKSPACE}" \
+            ${{ matrix.cmake-args }}
+
+      - name: Rename artifacts
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        run: |
+          mkdir -p artifacts
+          if [ -f "build/${{ matrix.artifact-name }}/zephyr/zmk.uf2" ]; then
+            cp "build/${{ matrix.artifact-name }}/zephyr/zmk.uf2" "artifacts/${{ matrix.artifact-name }}.uf2"
+          fi
+
+      - name: Upload individual artifacts
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || contains(matrix.build-type, github.event.inputs.build_type) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: artifacts/${{ matrix.artifact-name }}.uf2
+          retention-days: 60
+
+  package-firmware:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.build_type != 'reset-only')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-artifacts
+
+      - name: Create firmware packages
+        run: |
+          mkdir -p packages/standard-mode packages/dongle-mode
+          
+          # Create pairing instructions
+          cat > PAIRING_INSTRUCTIONS.md << 'EOF'
+          # ZMK Eyelash Sofle Keyboard Pairing Instructions
+          
+          ## Standard Mode Package
+          **Files:** eyelash_sofle_left.uf2 + eyelash_sofle_right.uf2 + settings_reset.uf2
+          
+          1. Flash left half: eyelash_sofle_left.uf2 (central/master)
+          2. Flash right half: eyelash_sofle_right.uf2 (peripheral)  
+          3. Power on left first, then right - they will auto-pair
+          
+          ## Dongle Mode Package  
+          **Files:** eyelash_sofle_dongle.uf2 + eyelash_sofle_left_peripheral.uf2 + eyelash_sofle_right_peripheral.uf2 + settings_reset.uf2
+          
+          1. Flash dongle: eyelash_sofle_dongle.uf2 (central)
+          2. Flash left half: eyelash_sofle_left_peripheral.uf2 (peripheral)
+          3. Flash right half: eyelash_sofle_right_peripheral.uf2 (peripheral)
+          4. Plug in dongle, then power on left and right halves
+          
+          ## Troubleshooting
+          If pairing fails, flash settings_reset.uf2 to ALL devices, then re-flash firmware.
+          EOF
+          
+          # Package standard mode
+          if [ -d "all-artifacts/eyelash_sofle_left" ] && [ -d "all-artifacts/eyelash_sofle_right" ]; then
+            cp all-artifacts/eyelash_sofle_left/*.uf2 packages/standard-mode/
+            cp all-artifacts/eyelash_sofle_right/*.uf2 packages/standard-mode/
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/standard-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/standard-mode/
+          fi
+          
+          # Package dongle mode  
+          if [ -d "all-artifacts/eyelash_sofle_dongle" ]; then
+            cp all-artifacts/eyelash_sofle_dongle/*.uf2 packages/dongle-mode/
+            if [ -d "all-artifacts/eyelash_sofle_left_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_left_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/eyelash_sofle_right_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_right_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/dongle-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/dongle-mode/
+          fi
+
+      - name: Upload Standard Mode Package
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || github.event.inputs.build_type == 'standard' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: STANDARD-MODE-COMPLETE
+          path: packages/standard-mode/
+          retention-days: 60
+
+      - name: Upload Dongle Mode Package  
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.build_type == 'all' || github.event.inputs.build_type == 'dongle' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: DONGLE-MODE-COMPLETE
+          path: packages/dongle-mode/
+          retention-days: 60
