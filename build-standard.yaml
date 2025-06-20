@@ -1,6 +1,6 @@
 ---
 include:
-  # Default build - Standard split keyboard mode (left master, right peripheral)
+  # Standard split keyboard mode (left master, right peripheral)
 
   # Left half (master) with ZMK Studio support
   - board: eyelash_sofle_left

@@ -1,0 +1,18 @@
+---
+include:
+  # Settings reset firmware only
+
+  # Settings reset firmware for left half
+  - board: eyelash_sofle_left
+    shield: settings_reset
+    artifact-name: eyelash_sofle_settings_reset_left
+
+  # Settings reset firmware for right half
+  - board: eyelash_sofle_right
+    shield: settings_reset
+    artifact-name: eyelash_sofle_settings_reset_right
+
+  # Settings reset firmware for dongle
+  - board: eyelash_sofle_dongle
+    shield: settings_reset
+    artifact-name: eyelash_sofle_settings_reset_dongle

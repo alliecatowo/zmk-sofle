@@ -1,6 +1,16 @@
-name: Main
+name: Build ZMK Firmware
 on:
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Firmware build type'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+        - standard
+        - dongle
+        - reset-only
   push:
     branches:
       - main
@@ -31,13 +41,13 @@ jobs:
           mkdir -p pairing-instructions
 
           cat > pairing-instructions/PAIRING_INSTRUCTIONS.md << 'EOF'
-          # ZMK Sofle Keyboard Pairing Instructions
+          # ZMK Eyelash Sofle Keyboard Pairing Instructions
 
           ## Standard Mode (Left Side Master)
 
           1. **Flash the firmware:**
-             - Left half: `alliecat_keeb_studio_left.uf2` (with ZMK Studio support)
-             - Right half: `alliecat_keeb_standard_right.uf2`
+             - Left half: `eyelash_sofle_studio_left.uf2` (with ZMK Studio support)
+             - Right half: `eyelash_sofle_standard_right.uf2`
 
           2. **Pairing process:**
              - Power on the left half first (master)
@@ -48,9 +58,9 @@ jobs:
           ## Dongle Mode (Unified Receiver)
 
           1. **Flash the firmware in this exact order:**
-             - Dongle: `alliecatkeeb_dongle_central.uf2`
-             - Left half: `alliecatkeeb_left_peripheral.uf2`
-             - Right half: `alliecatkeeb_right_peripheral.uf2`
+             - Dongle: `eyelash_sofle_dongle_central.uf2`
+             - Left half: `eyelash_sofle_dongle_peripheral_left.uf2`
+             - Right half: `eyelash_sofle_dongle_peripheral_right.uf2`
 
           2. **Bonding process:**
              - Plug in the dongle to your computer
@@ -61,7 +71,10 @@ jobs:
           ## Troubleshooting
 
           If pairing fails:
-          1. Flash the settings reset firmware to all devices
+          1. Flash the settings reset firmware to all devices:
+             - `eyelash_sofle_settings_reset_left.uf2`
+             - `eyelash_sofle_settings_reset_right.uf2`
+             - `eyelash_sofle_settings_reset_dongle.uf2` (if using dongle mode)
           2. Re-flash the appropriate firmware
           3. Try the pairing process again
 
@@ -69,6 +82,11 @@ jobs:
           - Blinking: Searching for connection
           - Solid: Connected
           - Off: Sleeping or battery dead
+
+          ## Build Types Available
+          - **Standard Mode**: Use "Run workflow" → "standard" for traditional split keyboard
+          - **Dongle Mode**: Use "Run workflow" → "dongle" for wireless dongle setup
+          - **Reset Only**: Use "Run workflow" → "reset-only" for settings reset firmware only
           EOF
 
       - name: Upload Pairing Instructions
