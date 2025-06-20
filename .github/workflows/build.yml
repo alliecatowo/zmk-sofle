@@ -33,11 +33,11 @@ jobs:
           **All firmware includes ZMK Studio support by default!**
           
           ## Standard Mode Package
-          **Files:** eyelash_sofle_studio_left.uf2 + eyelash_sofle_right.uf2 + settings_reset.uf2
+          **Files:** sofle_standard_left_central.uf2 + sofle_standard_right_peripheral.uf2 + settings_reset.uf2
           
           1. **Flash the firmware:**
-             - Left half: `eyelash_sofle_studio_left.uf2` (central with ZMK Studio)
-             - Right half: `eyelash_sofle_right.uf2` (peripheral)
+             - Left half: `sofle_standard_left_central.uf2` (central with ZMK Studio)
+             - Right half: `sofle_standard_right_peripheral.uf2` (peripheral)
           2. **Pairing process:**
              - Power on the left half first (master)
              - Power on the right half
@@ -45,12 +45,12 @@ jobs:
              - If not, press the reset button on both halves
           
           ## Dongle Mode Package  
-          **Files:** eyelash_sofle_studio_dongle.uf2 + eyelash_sofle_left_peripheral.uf2 + eyelash_sofle_right_peripheral.uf2 + settings_reset.uf2
+          **Files:** sofle_dongle_central.uf2 + sofle_dongle_left_peripheral.uf2 + sofle_dongle_right_peripheral.uf2 + settings_reset.uf2
           
           1. **Flash the firmware in this exact order:**
-             - Dongle: `eyelash_sofle_studio_dongle.uf2` (central with ZMK Studio)
-             - Left half: `eyelash_sofle_left_peripheral.uf2` (peripheral)
-             - Right half: `eyelash_sofle_right_peripheral.uf2` (peripheral)
+             - Dongle: `sofle_dongle_central.uf2` (central with ZMK Studio)
+             - Left half: `sofle_dongle_left_peripheral.uf2` (peripheral)
+             - Right half: `sofle_dongle_right_peripheral.uf2` (peripheral)
           2. **Bonding process:**
              - Plug in the dongle to your computer
              - Power on the left half - wait for it to connect (LED will stop blinking)
@@ -75,9 +75,9 @@ jobs:
           EOF
           
           # Package standard mode
-          if [ -d "all-artifacts/eyelash_sofle_studio_left" ] && [ -d "all-artifacts/eyelash_sofle_right" ]; then
-            cp all-artifacts/eyelash_sofle_studio_left/*.uf2 packages/standard-mode/
-            cp all-artifacts/eyelash_sofle_right/*.uf2 packages/standard-mode/
+          if [ -d "all-artifacts/sofle_standard_left_central" ] && [ -d "all-artifacts/sofle_standard_right_peripheral" ]; then
+            cp all-artifacts/sofle_standard_left_central/*.uf2 packages/standard-mode/
+            cp all-artifacts/sofle_standard_right_peripheral/*.uf2 packages/standard-mode/
             if [ -d "all-artifacts/settings_reset" ]; then
               cp all-artifacts/settings_reset/*.uf2 packages/standard-mode/
             fi
@@ -88,13 +88,13 @@ jobs:
           fi
           
           # Package dongle mode  
-          if [ -d "all-artifacts/eyelash_sofle_studio_dongle" ]; then
-            cp all-artifacts/eyelash_sofle_studio_dongle/*.uf2 packages/dongle-mode/
-            if [ -d "all-artifacts/eyelash_sofle_left_peripheral" ]; then
-              cp all-artifacts/eyelash_sofle_left_peripheral/*.uf2 packages/dongle-mode/
+          if [ -d "all-artifacts/sofle_dongle_central" ]; then
+            cp all-artifacts/sofle_dongle_central/*.uf2 packages/dongle-mode/
+            if [ -d "all-artifacts/sofle_dongle_left_peripheral" ]; then
+              cp all-artifacts/sofle_dongle_left_peripheral/*.uf2 packages/dongle-mode/
             fi
-            if [ -d "all-artifacts/eyelash_sofle_right_peripheral" ]; then
-              cp all-artifacts/eyelash_sofle_right_peripheral/*.uf2 packages/dongle-mode/
+            if [ -d "all-artifacts/sofle_dongle_right_peripheral" ]; then
+              cp all-artifacts/sofle_dongle_right_peripheral/*.uf2 packages/dongle-mode/
             fi
             if [ -d "all-artifacts/settings_reset" ]; then
               cp all-artifacts/settings_reset/*.uf2 packages/dongle-mode/

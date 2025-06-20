@@ -7,12 +7,12 @@ include:
     shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-    artifact-name: eyelash_sofle_studio_left
+    artifact-name: sofle_standard_left_central
 
   # Right half (peripheral for standard mode)
   - board: eyelash_sofle_right
     shield: nice_view_custom
-    artifact-name: eyelash_sofle_right
+    artifact-name: sofle_standard_right_peripheral
 
   # DONGLE MODE - Dongle central + Left peripheral + Right peripheral
 
@@ -21,17 +21,17 @@ include:
     shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-    artifact-name: eyelash_sofle_studio_dongle
+    artifact-name: sofle_dongle_central
 
   # Left half (peripheral for dongle mode)
   - board: eyelash_sofle_left
     shield: nice_view_custom
-    artifact-name: eyelash_sofle_left_peripheral
+    artifact-name: sofle_dongle_left_peripheral
 
   # Right half (peripheral for dongle mode)
   - board: eyelash_sofle_right
     shield: nice_view_custom
-    artifact-name: eyelash_sofle_right_peripheral
+    artifact-name: sofle_dongle_right_peripheral
 
   # UNIVERSAL SETTINGS RESET
 
