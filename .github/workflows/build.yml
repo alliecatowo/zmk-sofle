@@ -1,11 +1,79 @@
-name: Build ZMK firmware
+name: Main
 on:
   workflow_dispatch:
   push:
-    paths-ignore:
-      - "keymap-drawer/**"
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'boards/**'
+      - 'zephyr/**'
+      - '**.keymap'
+      - '.github/workflows/build.yml'
+      - 'build.yaml'
+      - 'build-*.yaml'
 
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      build_matrix_path: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'standard') && 'build-standard.yaml' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'dongle') && 'build-dongle.yaml' || (github.event_name == 'workflow_dispatch' && github.event.inputs.build_type == 'reset-only') && 'build-reset.yaml' || 'build.yaml' }}
 
+  generate-pairing-info:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.build_type != 'reset-only')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Pairing Instructions
+        run: |
+          mkdir -p pairing-instructions
+
+          cat > pairing-instructions/PAIRING_INSTRUCTIONS.md << 'EOF'
+          # ZMK Sofle Keyboard Pairing Instructions
+
+          ## Standard Mode (Left Side Master)
+
+          1. **Flash the firmware:**
+             - Left half: `alliecat_keeb_studio_left.uf2` (with ZMK Studio support)
+             - Right half: `alliecat_keeb_standard_right.uf2`
+
+          2. **Pairing process:**
+             - Power on the left half first (master)
+             - Power on the right half
+             - They should automatically pair within 30 seconds
+             - If not, press the reset button on both halves
+
+          ## Dongle Mode (Unified Receiver)
+
+          1. **Flash the firmware in this exact order:**
+             - Dongle: `alliecatkeeb_dongle_central.uf2`
+             - Left half: `alliecatkeeb_left_peripheral.uf2`
+             - Right half: `alliecatkeeb_right_peripheral.uf2`
+
+          2. **Bonding process:**
+             - Plug in the dongle to your computer
+             - Power on the left half - wait for it to connect (LED will stop blinking)
+             - Power on the right half - wait for it to connect
+             - All three devices are now bonded!
+
+          ## Troubleshooting
+
+          If pairing fails:
+          1. Flash the settings reset firmware to all devices
+          2. Re-flash the appropriate firmware
+          3. Try the pairing process again
+
+          ## LED Indicators
+          - Blinking: Searching for connection
+          - Solid: Connected
+          - Off: Sleeping or battery dead
+          EOF
+
+      - name: Upload Pairing Instructions
+        uses: actions/upload-artifact@v4
+        with:
+          name: pairing-instructions
+          path: pairing-instructions/
+          retention-days: 60

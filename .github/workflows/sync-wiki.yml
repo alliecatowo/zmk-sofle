@@ -1,0 +1,23 @@
+name: Sync docs to Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/sync-wiki.yml'
+
+jobs:
+  publish-wiki:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish To Wiki
+        uses: Andrew-Chen-Wang/github-wiki-action@v4
+        with:
+          path: docs

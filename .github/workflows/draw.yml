@@ -1,18 +1,37 @@
 name: Draw Keymap
+
 on:
-  workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
-      - "config/**"
-      - .github/workflows/draw.yml
-      - keymap_drawer.config.yaml
+      - 'config/*.keymap'
+      - '.github/workflows/draw.yml'
+  workflow_dispatch:
 
 jobs:
   draw:
-    uses: caksoylar/keymap-drawer/.github/workflows/draw-zmk.yml@main
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer
+
+      - name: Parse and draw keymap
+        run: |
+          mkdir -p keymap-drawer
+          keymap parse -z config/alliecat_keeb.keymap > keymap.yaml
+          keymap draw keymap.yaml --config-file keymap_drawer.config.yaml -o keymap-drawer/sofle.svg
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
     with:
-      commit_message: "[Draw] ${{ github.event.head_commit.message }}"
-      destination: "commit"
-      fail_on_error: ${{ fromJSON(true) }}
+          commit_message: "docs(keymap): Update keymap diagram"
+          file_pattern: "keymap-drawer/sofle.svg"

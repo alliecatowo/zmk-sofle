@@ -1,32 +1,21 @@
-# AllieCatKeeb Sofle ZMK Firmware
+# Welcome to the AllieCatKeeb Wiki!
 
-[![Build Status](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml/badge.svg)](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml)
-[![GitBook](https://img.shields.io/badge/Documentation-GitBook-blue)](https://app.gitbook.com/o/3H4WaN1tEms6khZUHFAb/s/rPqJa63N36I6Y3X2pLjt/)
-[![GitHub Wiki](https://img.shields.io/badge/Documentation-Wiki-blue)](https://github.com/alliecatowo/zmk-sofle/wiki)
+This documentation serves as the comprehensive guide for the AllieCatKeeb, a custom Sofle keyboard running ZMK firmware.
 
-This repository contains the ZMK firmware and configuration for the **AllieCatKeeb**, a custom-built Sofle split keyboard.
+Whether you're looking to build your own, flash the firmware, or customize the keymap, you'll find everything you need right here.
 
-## Documentation
+## Getting Started
 
-For full details on flashing, configuration, and hardware, please see our official documentation:
+*   **[Quick Start Guide](quick-start.md)**: The fastest way to get your keyboard up and running.
+*   **[Hardware Overview](hardware-overview.md)**: Details about the components used in this build.
+*   **[Building Firmware](building-firmware.md)**: A guide to building the firmware from source.
 
-*   **[Read the GitBook](https://app.gitbook.com/o/3H4WaN1tEms6khZUHFAb/s/rPqJa63N36I6Y3X2pLjt/)**
-*   **[Explore the GitHub Wiki](https://github.com/alliecatowo/zmk-sofle/wiki)**
+## Key Resources
 
-The documentation is managed in the `/docs` directory of this repository.
-
-## Quick Flash
-
-Pre-built firmware can be downloaded from the **Artifacts** section of the latest [GitHub Actions build run](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml).
-
-*   **Standard Mode**: `alliecat_keeb_studio_left.uf2` + `alliecat_keeb_standard_right.uf2`
-*   **Dongle Mode**: See the [Dongle Mode Setup Guide](docs/dongle-mode.md).
-
-### Flashing Steps
-
-1.  **Enter Bootloader**: Double-tap the reset button on your keyboard half. It should appear as a `NICENANO` or `XIAO` drive.
-2.  **Copy Firmware**: Drag and drop the `.uf2` file onto the drive.
-3.  **Repeat**: Do the same for the other half.
+*   **[Official ZMK Docs](https://zmk.dev/docs)**: The definitive resource for the ZMK firmware.
+*   **[Sofle Keyboard Project](https://josefadamcik.github.io/SofleKeyboard/)**: The original design that inspired this keyboard.
+*   **[Dongle Display Module](https://github.com/englmaxi/zmk-dongle-display)**: The custom display used for the receiver dongle.
+*   **[Original AllieCatKeeb Design](https://www.aliexpress.us/item/3256807855305954.html)** from AliExpress seller
 
 ## 🚀 Quick Start
 
@@ -170,23 +159,15 @@ The dongle firmware uses the excellent [zmk-dongle-display module](https://githu
 
 ## Flashing Instructions
 
-For the most reliable setup, it is highly recommended to first flash the `settings_reset` firmware to clear any old pairing data, and then flash the main firmware in the correct order.
+You can find pre-built firmware files ready for flashing in the "Artifacts" section of the latest GitHub Actions build run.
 
-### Step 1: Reset All Devices (Recommended)
+1.  **Reset to Bootloader**: Double-tap the reset button on the PCB.
+2.  **Flash Firmware**: Drag and drop the appropriate `.uf2` file onto the `NICENANO` or `XIAO` drive that appears.
+    *   `alliecatkeeb_left_peripheral.uf2` -> Left Half
+    *   `alliecatkeeb_right_peripheral.uf2` -> Right Half
+    *   `alliecatkeeb_dongle_central.uf2` -> Dongle
 
-1.  Put your **Dongle** into bootloader mode (double-tap the reset button).
-2.  Copy the `settings_reset_dongle.uf2` file to the drive that appears.
-3.  Repeat this process for the **Left** and **Right** halves, using `settings_reset_left.uf2` and `settings_reset_right.uf2` respectively.
-
-### Step 2: Flash Main Firmware in Order
-
-After resetting, flash the main firmware. **The order is important.**
-
-1.  **Flash Dongle First**: Put the dongle in bootloader mode and copy `alliecatkeeb_dongle_central.uf2` to it. The dongle must be running first to accept connections from the keyboard halves.
-2.  **Flash Left Half**: Put the left half in bootloader mode and copy `alliecatkeeb_left_peripheral.uf2`.
-3.  **Flash Right Half**: Put the right half in bootloader mode and copy `alliecatkeeb_right_peripheral.uf2`.
-
-Once flashed, the halves will automatically connect to the dongle.
+If you encounter issues, flash the `settings_reset.uf2` firmware to all devices first, then flash the main firmware.
 
 ## Repository Management
 
