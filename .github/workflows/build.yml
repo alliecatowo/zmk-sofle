@@ -8,3 +8,122 @@ on:
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+
+  package-firmware:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-artifacts
+
+      - name: Create firmware packages
+        run: |
+          mkdir -p packages/standard-mode packages/dongle-mode
+          
+          # Create pairing instructions
+          cat > PAIRING_INSTRUCTIONS.md << 'EOF'
+          # ZMK Eyelash Sofle Keyboard Pairing Instructions
+          
+          **All firmware includes ZMK Studio support by default!**
+          
+          ## Standard Mode Package
+          **Files:** eyelash_sofle_studio_left.uf2 + eyelash_sofle_right.uf2 + settings_reset.uf2
+          
+          1. **Flash the firmware:**
+             - Left half: `eyelash_sofle_studio_left.uf2` (central with ZMK Studio)
+             - Right half: `eyelash_sofle_right.uf2` (peripheral)
+          2. **Pairing process:**
+             - Power on the left half first (master)
+             - Power on the right half
+             - They should automatically pair within 30 seconds
+             - If not, press the reset button on both halves
+          
+          ## Dongle Mode Package  
+          **Files:** eyelash_sofle_studio_dongle.uf2 + eyelash_sofle_left_peripheral.uf2 + eyelash_sofle_right_peripheral.uf2 + settings_reset.uf2
+          
+          1. **Flash the firmware in this exact order:**
+             - Dongle: `eyelash_sofle_studio_dongle.uf2` (central with ZMK Studio)
+             - Left half: `eyelash_sofle_left_peripheral.uf2` (peripheral)
+             - Right half: `eyelash_sofle_right_peripheral.uf2` (peripheral)
+          2. **Bonding process:**
+             - Plug in the dongle to your computer
+             - Power on the left half - wait for it to connect (LED will stop blinking)
+             - Power on the right half - wait for it to connect
+             - All three devices are now bonded!
+          
+          ## Troubleshooting
+          If pairing fails:
+          1. Flash the universal settings reset firmware to ALL devices:
+             - Use `settings_reset.uf2` on left, right, and dongle (same file works for all)
+          2. Re-flash the appropriate firmware
+          3. Try the pairing process again
+          
+          ## LED Indicators
+          - Blinking: Searching for connection
+          - Solid: Connected
+          - Off: Sleeping or battery dead
+          
+          ## ZMK Studio
+          All firmware includes ZMK Studio support by default - no separate "studio" versions needed!
+          Connect via USB to the central device (left half in standard mode, dongle in dongle mode) to configure your keymap.
+          EOF
+          
+          # Package standard mode
+          if [ -d "all-artifacts/eyelash_sofle_studio_left" ] && [ -d "all-artifacts/eyelash_sofle_right" ]; then
+            cp all-artifacts/eyelash_sofle_studio_left/*.uf2 packages/standard-mode/
+            cp all-artifacts/eyelash_sofle_right/*.uf2 packages/standard-mode/
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/standard-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/standard-mode/
+            echo "✅ Standard mode package created"
+          else
+            echo "⚠️ Standard mode artifacts missing"
+          fi
+          
+          # Package dongle mode  
+          if [ -d "all-artifacts/eyelash_sofle_studio_dongle" ]; then
+            cp all-artifacts/eyelash_sofle_studio_dongle/*.uf2 packages/dongle-mode/
+            if [ -d "all-artifacts/eyelash_sofle_left_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_left_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/eyelash_sofle_right_peripheral" ]; then
+              cp all-artifacts/eyelash_sofle_right_peripheral/*.uf2 packages/dongle-mode/
+            fi
+            if [ -d "all-artifacts/settings_reset" ]; then
+              cp all-artifacts/settings_reset/*.uf2 packages/dongle-mode/
+            fi
+            cp PAIRING_INSTRUCTIONS.md packages/dongle-mode/
+            echo "✅ Dongle mode package created"
+          else
+            echo "⚠️ Dongle mode artifacts missing"
+          fi
+          
+          # List what we packaged
+          echo ""
+          echo "📦 Package Contents:"
+          echo "Standard Mode:"
+          ls -la packages/standard-mode/ || echo "No standard mode package"
+          echo ""
+          echo "Dongle Mode:"
+          ls -la packages/dongle-mode/ || echo "No dongle mode package"
+
+      - name: Upload Standard Mode Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: STANDARD-MODE-COMPLETE
+          path: packages/standard-mode/
+          retention-days: 60
+
+      - name: Upload Dongle Mode Package  
+        uses: actions/upload-artifact@v4
+        with:
+          name: DONGLE-MODE-COMPLETE
+          path: packages/dongle-mode/
+          retention-days: 60

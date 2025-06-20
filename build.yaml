@@ -1,16 +1,41 @@
 ---
 include:
-  # Left half (central/master)
+  # STANDARD MODE - Left central + Right peripheral
+
+  # Left half (central/master with Studio support)
   - board: eyelash_sofle_left
     shield: nice_view
-    artifact-name: eyelash_sofle_left
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+    artifact-name: eyelash_sofle_studio_left
 
-  # Right half (peripheral)
+  # Right half (peripheral for standard mode)
   - board: eyelash_sofle_right
     shield: nice_view_custom
     artifact-name: eyelash_sofle_right
 
-  # Universal settings reset (works for all boards)
+  # DONGLE MODE - Dongle central + Left peripheral + Right peripheral
+
+  # Dongle (central receiver with Studio support)
+  - board: eyelash_sofle_dongle
+    shield: nice_view
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+    artifact-name: eyelash_sofle_studio_dongle
+
+  # Left half (peripheral for dongle mode)
+  - board: eyelash_sofle_left
+    shield: nice_view_custom
+    artifact-name: eyelash_sofle_left_peripheral
+
+  # Right half (peripheral for dongle mode)
+  - board: eyelash_sofle_right
+    shield: nice_view_custom
+    artifact-name: eyelash_sofle_right_peripheral
+
+  # UNIVERSAL SETTINGS RESET
+
+  # Settings reset firmware (works for all boards)
   - board: eyelash_sofle_left
     shield: settings_reset
     artifact-name: settings_reset
