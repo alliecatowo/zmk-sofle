@@ -72,6 +72,10 @@ This project is configured for the Eyelash Sofle, which typically uses:
 - **Displays**: 2x Nice!View (or 128x64 OLEDs)
 - **Dongle Display**: 1x 128x64 OLED
 
+**Note:** The Eyelash Sofle is sold as a pre-built kit on AliExpress, so no
+hardware assembly is required. You only need to flash the firmware provided in
+this repository.
+
 ### Official Product Links
 - [**Eyelash Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
 - [**ZMK Dongle Display Module** by @englmaxi](https://github.com/englmaxi/zmk-dongle-display)
