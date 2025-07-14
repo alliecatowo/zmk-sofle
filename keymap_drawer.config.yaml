@@ -318,12 +318,8 @@ parse_config:
     SQT:
       tap: "'"
       shifted: '"'
-    APOSTROPHE: 
-      tap: "'"
-      shifted: '"'
-    APOS: 
-      tap: "'"
-      shifted: '"'
+    APOSTROPHE: <
+    APOS: .
     DOUBLE_QUOTES: '"'
     DQT: '"'
 
