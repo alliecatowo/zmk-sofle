@@ -89,6 +89,9 @@ cd zmk-sofle
 # Initialize ZMK workspace
 west init -l config
 west update
+
+# Or run the helper script which performs these steps
+./scripts/setup-local-build.sh
 ```
 
 ### Install Zephyr SDK

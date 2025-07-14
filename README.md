@@ -43,8 +43,9 @@ Pre-built firmware can be downloaded from the **Artifacts** section of the lates
 
 1. Fork this repository
 2. Edit `config/alliecat_keeb.keymap` to customize your layout
-3. Push changes to trigger automatic builds
-4. Download firmware from Actions tab
+3. Run `./scripts/setup-local-build.sh` to set up the ZMK workspace and fetch modules
+4. Push changes to trigger automatic builds
+5. Download firmware from Actions tab
 
 ### Option 3: Manual Build Triggers
 
@@ -151,6 +152,10 @@ This project inherits the licenses of its components:
 ---
 
 **Need help?** Check the [documentation](docs/) or open an issue!
+
+## Keyboard Displays
+
+Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left side uses the standard `nice_view` layout while the right uses the `nice_view_custom` variant so both displays face the user and show layer and Bluetooth status. The separate dongle screen is unchanged.
 
 ## Dongle Display
 

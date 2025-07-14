@@ -141,6 +141,10 @@ This project inherits the licenses of its components:
 
 **Need help?** Check the [documentation](docs/) or open an issue!
 
+## Keyboard Displays
+
+Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left side uses the standard `nice_view` layout while the right uses the `nice_view_custom` variant so both displays face the user and show layer and Bluetooth status.
+
 ## Dongle Display
 
 The dongle firmware uses the excellent [zmk-dongle-display module](https://github.com/englmaxi/zmk-dongle-display) by `englmaxi`. This provides a rich status screen with widgets for:
