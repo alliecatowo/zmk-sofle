@@ -2,6 +2,8 @@
 
 The ZMK AllieCat Sofle is a wireless split ergonomic keyboard featuring 58 keys, RGB underglow, OLED displays, and a rotary encoder. This document provides comprehensive information about the hardware components, specifications, and technical details.
 
+**Good to know:** The keyboard kit is sold fully assembled on AliExpress. You do not need to fabricate PCBs or solder components—simply flash the firmware and start typing.
+
 ## 🔧 Core Components
 
 ### Microcontrollers
