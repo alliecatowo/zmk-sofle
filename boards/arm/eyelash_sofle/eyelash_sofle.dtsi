@@ -234,3 +234,13 @@ nice_view_spi: &spi0 {
     pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
 };
+
+nice_oled: nice_oled@0 {
+    compatible = "zmk,nice-oled";
+    reg = <0>;
+    width = <128>;
+    height = <64>;
+    spi-max-frequency = <8000000>;
+    cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+    spi-bus = <&spi0>;
+};
