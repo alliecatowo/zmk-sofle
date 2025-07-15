@@ -28,6 +28,7 @@ fi
 
 BUILD_TYPE=$1
 CONFIG_PATH=$(pwd)/config
+BOARD_ROOT=$(pwd)
 BUILD_BASE="build"
 
 echo "🔨 Building $BUILD_TYPE firmware..."
@@ -36,6 +37,7 @@ case $BUILD_TYPE in
     "left-c"|"left_central")
         echo "📱 Building left central (standard mode master)"
         west build -d ${BUILD_BASE}/left_central -s zmk/app -b eyelash_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
@@ -46,6 +48,7 @@ case $BUILD_TYPE in
     "right-p"|"right_peripheral")
         echo "📱 Building right peripheral (works for both standard and dongle modes)"
         west build -d ${BUILD_BASE}/right_peripheral -s zmk/app -b eyelash_sofle_right -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
@@ -56,6 +59,7 @@ case $BUILD_TYPE in
     "dongle")
         echo "📡 Building dongle central receiver"
         west build -d ${BUILD_BASE}/dongle -s zmk/app -b eyelash_sofle_dongle -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
@@ -70,6 +74,7 @@ case $BUILD_TYPE in
     "left-p"|"left_peripheral")
         echo "📱 Building left peripheral (for dongle mode)"
         west build -d ${BUILD_BASE}/left_peripheral -s zmk/app -b eyelash_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
@@ -81,6 +86,7 @@ case $BUILD_TYPE in
     "reset")
         echo "🔄 Building settings reset firmware"
         west build -d ${BUILD_BASE}/reset -s zmk/app -b eyelash_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DSHIELD=settings_reset
         FIRMWARE_PATH="${BUILD_BASE}/reset/zephyr/zmk.uf2"
