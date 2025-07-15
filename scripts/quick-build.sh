@@ -3,6 +3,8 @@
 
 set -e
 
+BOARD_ROOT="$(pwd)"
+
 if [ $# -eq 0 ]; then
     echo "�� Quick Build Script - Two Firmware Batches"
     echo ""
@@ -35,27 +37,30 @@ echo "🔨 Building $BUILD_TYPE firmware..."
 case $BUILD_TYPE in
     "left-c"|"left_central")
         echo "📱 Building left central (standard mode master)"
-        west build -d ${BUILD_BASE}/left_central -s zmk/app -b eyelash_sofle_left -- \
+        west build -d ${BUILD_BASE}/left_central -s zmk/app -b alliecat_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
             -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
         FIRMWARE_PATH="${BUILD_BASE}/left_central/zephyr/zmk.uf2"
-        OUTPUT_NAME="eyelash_sofle_left.uf2"
+        OUTPUT_NAME="alliecat_sofle_left.uf2"
         ;;
     "right-p"|"right_peripheral")
         echo "📱 Building right peripheral (works for both standard and dongle modes)"
-        west build -d ${BUILD_BASE}/right_peripheral -s zmk/app -b eyelash_sofle_right -- \
+        west build -d ${BUILD_BASE}/right_peripheral -s zmk/app -b alliecat_sofle_right -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
             -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
         FIRMWARE_PATH="${BUILD_BASE}/right_peripheral/zephyr/zmk.uf2"
-        OUTPUT_NAME="eyelash_sofle_right.uf2"
+        OUTPUT_NAME="alliecat_sofle_right.uf2"
         ;;
     "dongle")
         echo "📡 Building dongle central receiver"
-        west build -d ${BUILD_BASE}/dongle -s zmk/app -b eyelash_sofle_dongle -- \
+        west build -d ${BUILD_BASE}/dongle -s zmk/app -b alliecat_sofle_dongle -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
@@ -65,22 +70,24 @@ case $BUILD_TYPE in
             -DCONFIG_BT_MAX_CONN=7 \
             -DCONFIG_BT_MAX_PAIRED=7
         FIRMWARE_PATH="${BUILD_BASE}/dongle/zephyr/zmk.uf2"
-        OUTPUT_NAME="eyelash_sofle_dongle.uf2"
+        OUTPUT_NAME="alliecat_sofle_dongle.uf2"
         ;;
     "left-p"|"left_peripheral")
         echo "📱 Building left peripheral (for dongle mode)"
-        west build -d ${BUILD_BASE}/left_peripheral -s zmk/app -b eyelash_sofle_left -- \
+        west build -d ${BUILD_BASE}/left_peripheral -s zmk/app -b alliecat_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DCONFIG_ZMK_STUDIO=y \
             -DCONFIG_ZMK_STUDIO_LOCKING=n \
             -DCONFIG_ZMK_SPLIT=y \
             -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
         FIRMWARE_PATH="${BUILD_BASE}/left_peripheral/zephyr/zmk.uf2"
-        OUTPUT_NAME="eyelash_sofle_left_peripheral.uf2"
+        OUTPUT_NAME="alliecat_sofle_left_peripheral.uf2"
         ;;
     "reset")
         echo "🔄 Building settings reset firmware"
-        west build -d ${BUILD_BASE}/reset -s zmk/app -b eyelash_sofle_left -- \
+        west build -d ${BUILD_BASE}/reset -s zmk/app -b alliecat_sofle_left -- \
+            -DBOARD_ROOT=${BOARD_ROOT} \
             -DZMK_CONFIG=${CONFIG_PATH} \
             -DSHIELD=settings_reset
         FIRMWARE_PATH="${BUILD_BASE}/reset/zephyr/zmk.uf2"

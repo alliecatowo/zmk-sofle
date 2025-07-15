@@ -1,6 +1,6 @@
 # Repository Guidelines for Codex Agents
 
-This repository contains ZMK firmware and configuration files for the Eyelash Sofle keyboard.
+This repository contains ZMK firmware and configuration files for the Allie Cat Sofle keyboard.
 
 ## Getting Started
 1. **Setup the build environment**
@@ -21,7 +21,7 @@ This repository contains ZMK firmware and configuration files for the Eyelash So
 
 3. **Update keymap diagram**
    ```bash
-   keymap parse -z config/eyelash_sofle.keymap > keymap.yaml
+   keymap parse -z config/alliecat_sofle.keymap > keymap.yaml
    keymap draw keymap.yaml --config-file keymap_drawer.config.yaml -o keymap-drawer/sofle.svg
    ```
    This mirrors what the `draw.yml` workflow does automatically.

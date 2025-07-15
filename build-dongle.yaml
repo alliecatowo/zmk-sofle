@@ -4,27 +4,27 @@ include:
   # ZMK Studio enabled by default in all firmware
 
   # Dongle (central receiver) with ZMK Studio support
-  - board: eyelash_sofle_dongle
+  - board: alliecat_sofle_dongle
     shield: nice_view
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS=2 -DCONFIG_BT_MAX_CONN=7 -DCONFIG_BT_MAX_PAIRED=7
-    artifact-name: eyelash_sofle_dongle
+    artifact-name: alliecat_sofle_dongle
 
   # Left half (peripheral for dongle mode) with ZMK Studio support
-  - board: eyelash_sofle_left
+  - board: alliecat_sofle_left
     shield: nice_view_custom
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
-    artifact-name: eyelash_sofle_left_peripheral
+    artifact-name: alliecat_sofle_left_peripheral
 
   # Right half (peripheral for dongle mode) with ZMK Studio support
-  - board: eyelash_sofle_right
+  - board: alliecat_sofle_right
     shield: nice_view_custom
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
-    artifact-name: eyelash_sofle_right_peripheral
+    artifact-name: alliecat_sofle_right_peripheral
 
   # Universal settings reset firmware (works for all boards)
-  - board: eyelash_sofle_left
+  - board: alliecat_sofle_left
     shield: settings_reset
     artifact-name: settings_reset

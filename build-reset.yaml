@@ -3,6 +3,6 @@ include:
   # Universal settings reset firmware only
   # Works for all boards (left, right, dongle)
 
-  - board: eyelash_sofle_left
+  - board: alliecat_sofle_left
     shield: settings_reset
     artifact-name: settings_reset

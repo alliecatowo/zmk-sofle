@@ -1,11 +1,11 @@
 # Quick Start Guide
 
-This guide covers the essential steps to get your AllieCatKeeb up and running with pre-built firmware.
+This guide covers the essential steps to get your Allie Cat Sofle up and running with pre-built firmware.
 
 ## Prerequisites
 
--   AllieCatKeeb keyboard (left and right halves)
--   AllieCatKeeb dongle
+-   Allie Cat Sofle keyboard (left and right halves)
+-   Allie Cat Sofle dongle
 -   USB-C cables
 
 ## Downloading Firmware
@@ -25,8 +25,8 @@ For the most reliable setup, it's best to first flash the `settings_reset` firmw
 
 ### Step 2: Flash Main Firmware (Order is Important)
 
-1.  **Flash Dongle First**: Put the dongle in bootloader mode and copy `alliecatkeeb_dongle_central.uf2` to it. The dongle needs to be active to accept connections from the keyboard halves.
-2.  **Flash Left Half**: Put the left half in bootloader mode and copy `alliecatkeeb_left_peripheral.uf2`.
-3.  **Flash Right Half**: Put the right half in bootloader mode and copy `alliecatkeeb_right_peripheral.uf2`.
+1.  **Flash Dongle First**: Put the dongle in bootloader mode and copy `alliecat_sofle_dongle.uf2` to it. The dongle needs to be active to accept connections from the keyboard halves.
+2.  **Flash Left Half**: Put the left half in bootloader mode and copy `alliecat_sofle_left_peripheral.uf2`.
+3.  **Flash Right Half**: Put the right half in bootloader mode and copy `alliecat_sofle_right_peripheral.uf2`.
 
-After the final flash, the two halves should automatically find and connect to the dongle. Congratulations, your AllieCatKeeb is ready to use!
+After the final flash, the two halves should automatically find and connect to the dongle. Congratulations, your Allie Cat Sofle is ready to use!

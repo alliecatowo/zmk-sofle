@@ -1,0 +1,16 @@
+#
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+#
+
+config BOARD_ALLIECAT_SOFLE_LEFT
+    bool "alliecat_sofle left"
+    depends on SOC_NRF52840_QIAA
+
+config BOARD_ALLIECAT_SOFLE_RIGHT
+    bool "alliecat_sofle right"
+    depends on SOC_NRF52840_QIAA
+
+config BOARD_ALLIECAT_SOFLE_DONGLE
+    bool "alliecat_sofle dongle"
+    depends on SOC_NRF52840_QIAA
