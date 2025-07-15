@@ -5,6 +5,8 @@ build/
 zephyr/
 !zephyr/module.yml
 modules/
+zmk-dongle-display/
+zmk-nice-oled/
 .venv/
 .DS_Store
 node_modules/
