@@ -89,6 +89,9 @@ cd zmk-sofle
 # Initialize ZMK workspace
 west init -l config
 west update
+
+# Or run the helper script which performs these steps
+./scripts/setup-local-build.sh
 ```
 
 ### Install Zephyr SDK
@@ -112,9 +115,9 @@ The `build.yaml` file defines the build targets:
 ```yaml
 # Standard wireless mode
 - board: alliecat_keeb_right
-  shield: nice_view_custom
+  shield: nice_oled
 - board: alliecat_keeb_left
-  shield: nice_view
+  shield: nice_oled
 
 # ZMK Studio mode (left half only)
 - board: alliecat_keeb_left
@@ -139,10 +142,10 @@ west build --board alliecat_keeb_left -- -DZMK_CONFIG="$(pwd)/config"
 #### Standard Wireless Mode
 ```bash
 # Build left half
-west build --board alliecat_keeb_left --shield nice_view -- -DZMK_CONFIG="$(pwd)/config"
+west build --board alliecat_keeb_left --shield nice_oled -- -DZMK_CONFIG="$(pwd)/config"
 
 # Build right half
-west build --board alliecat_keeb_right --shield nice_view_custom -- -DZMK_CONFIG="$(pwd)/config"
+west build --board alliecat_keeb_right --shield nice_oled -- -DZMK_CONFIG="$(pwd)/config"
 ```
 
 #### ZMK Studio Mode
