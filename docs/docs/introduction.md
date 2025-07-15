@@ -1,6 +1,6 @@
 # Introduction
 
-This repository contains the ZMK firmware configuration for my custom Sofle keyboard, which I've affectionately named the "AllieCatKeeb".
+This repository contains the ZMK firmware configuration for my custom Sofle keyboard, which I've affectionately named the "Allie Cat Sofle".
 
 This setup is designed for a split keyboard with a central dongle acting as the receiver.
 

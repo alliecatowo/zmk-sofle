@@ -1,10 +1,10 @@
-# AllieCatKeeb Sofle ZMK Firmware
+# Allie Cat Sofle ZMK Firmware
 
 [![Build Status](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml/badge.svg)](https://github.com/alliecatowo/zmk-sofle/actions/workflows/build.yml)
 [![GitBook](https://img.shields.io/badge/Documentation-GitBook-blue)](https://app.gitbook.com/o/3H4WaN1tEms6khZUHFAb/s/rPqJa63N36I6Y3X2pLjt/)
 [![GitHub Wiki](https://img.shields.io/badge/Documentation-Wiki-blue)](https://github.com/alliecatowo/zmk-sofle/wiki)
 
-This repository contains the ZMK firmware and configuration for the **AllieCatKeeb**, a custom-built Sofle split keyboard.
+This repository contains the ZMK firmware and configuration for the **Allie Cat Sofle**, a custom-built split keyboard.
 
 ## Documentation
 
@@ -67,17 +67,17 @@ Go to Actions → Build ZMK Firmware → Run workflow and choose:
 
 ## 🛠️ Hardware Requirements
 
-This project is configured for the Eyelash Sofle, which typically uses:
+This project is configured for the Allie Cat Sofle, which typically uses:
 - **Controllers**: 2x Nice!Nano v2 (3x for dongle mode)
 - **Displays**: 2x Nice!View (or 128x64 OLEDs)
 - **Dongle Display**: 1x 128x64 OLED
 
-**Note:** The Eyelash Sofle is sold as a pre-built kit on AliExpress, so no
+**Note:** The Allie Cat Sofle is sold as a pre-built kit on AliExpress, so no
 hardware assembly is required. You only need to flash the firmware provided in
 this repository.
 
 ### Official Product Links
-- [**Eyelash Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
+- [**Allie Cat Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
 - [**ZMK Dongle Display Module** by @englmaxi](https://github.com/englmaxi/zmk-dongle-display)
 
 ## 🎨 Keymap
@@ -148,7 +148,7 @@ This project inherits the licenses of its components:
 
 ## 🙏 Credits
 
-- Original [Eyelash Sofle design](https://www.aliexpress.us/item/3256807855305954.html) from AliExpress seller
+- Original [Allie Cat Sofle design](https://www.aliexpress.us/item/3256807855305954.html) from AliExpress seller
 - [ZMK firmware team](https://zmk.dev) for the excellent keyboard firmware
 - [@englmaxi](https://github.com/englmaxi) for the [zmk-dongle-display](https://github.com/englmaxi/zmk-dongle-display) module
 

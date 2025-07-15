@@ -28,7 +28,7 @@ jobs:
           
           # Create pairing instructions
           cat > PAIRING_INSTRUCTIONS.md << 'EOF'
-          # ZMK Eyelash Sofle Keyboard Pairing Instructions
+          # ZMK Allie Cat Sofle Keyboard Pairing Instructions
           
           **All firmware includes ZMK Studio support by default!**
           

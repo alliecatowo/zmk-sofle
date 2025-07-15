@@ -1,6 +1,6 @@
-# Welcome to the AllieCatKeeb Wiki!
+# Welcome to the Allie Cat Sofle Wiki!
 
-This documentation serves as the comprehensive guide for the AllieCatKeeb, a custom Sofle keyboard running ZMK firmware.
+This documentation serves as the comprehensive guide for the Allie Cat Sofle, a custom split keyboard running ZMK firmware.
 
 Whether you're looking to build your own, flash the firmware, or customize the keymap, you'll find everything you need right here.
 
@@ -15,7 +15,7 @@ Whether you're looking to build your own, flash the firmware, or customize the k
 *   **[Official ZMK Docs](https://zmk.dev/docs)**: The definitive resource for the ZMK firmware.
 *   **[Sofle Keyboard Project](https://josefadamcik.github.io/SofleKeyboard/)**: The original design that inspired this keyboard.
 *   **[Dongle Display Module](https://github.com/englmaxi/zmk-dongle-display)**: The custom display used for the receiver dongle.
-*   **[Original AllieCatKeeb Design](https://www.aliexpress.us/item/3256807855305954.html)** from AliExpress seller
+*   **[Original Allie Cat Sofle Design](https://www.aliexpress.us/item/3256807855305954.html)** from AliExpress seller
 
 ## 🚀 Quick Start
 
@@ -56,13 +56,13 @@ Go to Actions → Build ZMK Firmware → Run workflow and choose:
 
 ## 🛠️ Hardware Requirements
 
-This project is configured for the Eyelash Sofle, which typically uses:
+This project is configured for the Allie Cat Sofle, which typically uses:
 - **Controllers**: 2x Nice!Nano v2 (3x for dongle mode)
 - **Displays**: 2x Nice!View (or 128x64 OLEDs)
 - **Dongle Display**: 1x 128x64 OLED
 
 ### Official Product Links
-- [**Eyelash Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
+- [**Allie Cat Sofle Keyboard** on AliExpress](https://www.aliexpress.us/item/3256807855305954.html)
 - [**ZMK Dongle Display Module** by @englmaxi](https://github.com/englmaxi/zmk-dongle-display)
 
 ## 🎨 Keymap
@@ -133,7 +133,7 @@ This project inherits the licenses of its components:
 
 ## 🙏 Credits
 
-- Original [Eyelash Sofle design](https://www.aliexpress.us/item/3256807855305954.html) from AliExpress seller
+- Original [Allie Cat Sofle design](https://www.aliexpress.us/item/3256807855305954.html) from AliExpress seller
 - [ZMK firmware team](https://zmk.dev) for the excellent keyboard firmware
 - [@englmaxi](https://github.com/englmaxi) for the [zmk-dongle-display](https://github.com/englmaxi/zmk-dongle-display) module
 

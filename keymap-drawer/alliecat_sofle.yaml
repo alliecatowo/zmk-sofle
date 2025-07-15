@@ -1,4 +1,4 @@
-layout: {zmk_keyboard: eyelash_sofle}
+layout: {zmk_keyboard: alliecat_sofle}
 layers:
   LAYER0:
   - $$mdi:keyboard-esc$$

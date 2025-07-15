@@ -4,7 +4,7 @@
 * SPDX-License-Identifier: MIT
 *
 */
-#include "eyelash_sofle.dtsi"
+#include "alliecat_sofle.dtsi"
 
 &kscan0 {
      col-gpios

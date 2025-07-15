@@ -10,11 +10,11 @@
 #include <dt-bindings/led/led.h>
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#include "eyelash_sofle-layouts.dtsi"
+#include "alliecat_sofle-layouts.dtsi"
 
 / {
-    model = "eyelash_sofle";
-    compatible = "eyelashperipherals,eyelash_sofle";
+    model = "alliecat_sofle";
+    compatible = "alliecatperipherals,alliecat_sofle";
 
     chosen {
         zephyr,code-partition = &code_partition;
@@ -23,7 +23,7 @@
         zmk,kscan = &kscan0;
         zmk,battery = &vbatt;
         zmk,underglow = &led_strip;
-        zmk,physical-layout = &eyelash_sofle_layout;
+        zmk,physical-layout = &alliecat_sofle_layout;
         zmk,backlight = &backlight;
     };
 

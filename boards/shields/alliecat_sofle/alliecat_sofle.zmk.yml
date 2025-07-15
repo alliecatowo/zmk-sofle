@@ -1,6 +1,6 @@
 file_format: "1"
-id: eyelash_sofle
-name: Eyelash Sofle
+id: alliecat_sofle
+name: Allie Cat Sofle
 url: https://github.com/a741725193/zmk-sofle-dongle
 type: shield
 requires: [pro_micro]
@@ -11,5 +11,5 @@ outputs:
   - usb
   - ble
 siblings:
-  - eyelash_sofle_left
-  - eyelash_sofle_right
+  - alliecat_sofle_left
+  - alliecat_sofle_right
