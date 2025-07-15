@@ -6,12 +6,6 @@
 */
 #include "eyelash_sofle.dtsi"
 
-/{
-    chosen {
-        zephyr,display = &nice_oled;
-    };
-};
-
 &kscan0 {
      col-gpios
         = <&gpio0 22 GPIO_ACTIVE_HIGH>
@@ -28,8 +22,4 @@
     col-offset = <7>;
 };
 
-&nice_oled {
-    orientation-flip-x;
-    orientation-flip-y;
-};
 

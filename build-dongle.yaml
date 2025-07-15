@@ -12,14 +12,14 @@ include:
 
   # Left half (peripheral for dongle mode) with ZMK Studio support
   - board: eyelash_sofle_left
-    shield: nice_view_custom
+    shield: nice_oled
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: eyelash_sofle_left_peripheral
 
   # Right half (peripheral for dongle mode) with ZMK Studio support
   - board: eyelash_sofle_right
-    shield: nice_view_custom
+    shield: nice_oled
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
     artifact-name: eyelash_sofle_right_peripheral

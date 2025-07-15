@@ -155,7 +155,7 @@ This project inherits the licenses of its components:
 
 ## Keyboard Displays
 
-Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left side uses the standard `nice_view` layout while the right uses the `nice_view_custom` variant so both displays face the user and show layer and Bluetooth status. The separate dongle screen is unchanged.
+Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left side shows the standard layout while the right is flipped so both displays face the user and show layer and Bluetooth status. The separate dongle screen is unchanged.
 
 ## Dongle Display
 

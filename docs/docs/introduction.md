@@ -8,13 +8,13 @@ This setup is designed for a split keyboard with a central dongle acting as the 
 
 *   **Split Keyboard Layout**: Ergonomic design based on the Sofle keyboard.
 *   **ZMK Firmware**: Fully wireless and customizable via ZMK.
-*   **OLED Display**: Each half features a nice!view display powered by the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) library. The left uses the standard `nice_view` layout while the right uses `nice_view_custom` so both screens face the user and display layer and Bluetooth status.
+*   **OLED Display**: Each half features a nice!view display powered by the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) library. The left shows the standard layout while the right is flipped so both screens face the user and display layer and Bluetooth status.
 
 *   **Custom Dongle Display**: The receiver dongle uses a custom display module for advanced status monitoring.
 
 ## Keyboard Displays
 
-Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left half uses the `nice_view` layout while the right half uses `nice_view_custom` so both screens face the user and display layer and Bluetooth status.
+Each half uses the [zmk-nice-oled](https://github.com/mctechnology17/zmk-nice-oled) screen library. The left half shows the standard layout while the right half is flipped so both screens face the user and display layer and Bluetooth status.
 
 ## Dongle Display
 

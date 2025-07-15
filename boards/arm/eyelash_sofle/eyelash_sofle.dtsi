@@ -227,20 +227,10 @@ zephyr_udc0: &usbd {
     status = "okay";
 };
 
-&spi0 {
+nice_view_spi: &spi0 {
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-};
-
-nice_oled: nice-oled@0 {
-    compatible = "zmk,nice-oled";
-    reg = <0>;
-    width = <128>;
-    height = <64>;
-    spi-max-frequency = <8000000>;
-    cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
-    spi-bus = <&spi0>;
 };

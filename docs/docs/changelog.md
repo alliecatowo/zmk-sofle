@@ -131,8 +131,8 @@ CONFIG_ZMK_BACKLIGHT=y
 - **Multi-profile support**: Profile switching through dongle
 
 ### Components
-- **Left peripheral**: `eyeslash_sofle_peripheral_left nice_view_custom-nice_nano_v2-zmk.uf2`
-- **Right peripheral**: `eyeslash_sofle_peripheral_right nice_view_custom-nice_nano_v2-zmk.uf2`
+- **Left peripheral**: `eyeslash_sofle_peripheral_left nice_oled-nice_nano_v2-zmk.uf2`
+- **Right peripheral**: `eyeslash_sofle_peripheral_right nice_oled-nice_nano_v2-zmk.uf2`
 - **Central dongle**: `eyeslash_sofle_central_dongle_oled.uf2`
 - **Settings reset**: `settings_reset-nice_nano_v2-zmk.uf2`
 

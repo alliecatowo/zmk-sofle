@@ -27,11 +27,11 @@ The dongle connects to your computer via USB and receives input from both keyboa
 ## 📦 Firmware Files
 
 The dongle mode requires specific firmware files located in:
-`Instructions_ORIGINAL_CHINESE/zmk studio和 and new firmware/sofle-dongle-firmware接收器版固件/`
+-`Instructions_ORIGINAL_CHINESE/zmk studio和 and new firmware/sofle-dongle-firmware接收器版固件/`
 
 ### Required Firmware Files
-- `eyeslash_sofle_peripheral_left nice_view_custom-nice_nano_v2-zmk.uf2` - Left half
-- `eyeslash_sofle_peripheral_right nice_view_custom-nice_nano_v2-zmk.uf2` - Right half
+- `eyeslash_sofle_peripheral_left nice_oled-nice_nano_v2-zmk.uf2` - Left half
+- `eyeslash_sofle_peripheral_right nice_oled-nice_nano_v2-zmk.uf2` - Right half
 - `eyeslash_sofle_central_dongle_oled.uf2` - Dongle receiver
 - `settings_reset-nice_nano_v2-zmk.uf2` - Reset firmware (if needed)
 
@@ -40,12 +40,12 @@ The dongle mode requires specific firmware files located in:
 ### Step 1: Flash Peripheral Firmware
 1. **Left Half Setup**:
    - Put left Nice!Nano in bootloader mode (double-tap reset)
-   - Flash `eyeslash_sofle_peripheral_left nice_view_custom-nice_nano_v2-zmk.uf2`
+   - Flash `eyeslash_sofle_peripheral_left nice_oled-nice_nano_v2-zmk.uf2`
    - Wait for restart
 
 2. **Right Half Setup**:
    - Put right Nice!Nano in bootloader mode (double-tap reset)
-   - Flash `eyeslash_sofle_peripheral_right nice_view_custom-nice_nano_v2-zmk.uf2`
+   - Flash `eyeslash_sofle_peripheral_right nice_oled-nice_nano_v2-zmk.uf2`
    - Wait for restart
 
 ### Step 2: Prepare Dongle Hardware
