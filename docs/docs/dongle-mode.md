@@ -1,239 +1,211 @@
 # Dongle Mode Guide
 
-The AllieCat Sofle supports a unique **dongle mode** that allows you to use your wireless split keyboard with devices that don't have Bluetooth, or in environments where Bluetooth connections are restricted.
-
-## 🎯 What is Dongle Mode?
-
-Dongle mode transforms your keyboard setup into a **3-piece system**:
-- **Left keyboard half**: Acts as a peripheral device
-- **Right keyboard half**: Acts as a peripheral device  
-- **Dongle**: A third Nice!Nano that acts as a central receiver
-
-The dongle connects to your computer via USB and receives input from both keyboard halves wirelessly, then forwards it to your computer as if it were a regular wired keyboard.
-
-## 🔧 Hardware Requirements
-
-### Essential Components
-- **3x Nice!Nano controllers** (one for each half + dongle)
-- **1x OLED display** for the dongle (optional but recommended)
-- **USB-C cable** for dongle connection
-- **Dongle housing/case** (3D printed or purchased separately)
-
-### Optional Enhancements
-- **Status LEDs** on dongle for connection indication
-- **Reset button** for easy dongle management
-- **Power switch** for dongle (if using battery backup)
-
-## 📦 Firmware Files
-
-The dongle mode requires specific firmware files located in:
-`Instructions_ORIGINAL_CHINESE/zmk studio和 and new firmware/sofle-dongle-firmware接收器版固件/`
-
-### Required Firmware Files
-- `eyeslash_sofle_peripheral_left nice_view_custom-nice_nano_v2-zmk.uf2` - Left half
-- `eyeslash_sofle_peripheral_right nice_view_custom-nice_nano_v2-zmk.uf2` - Right half
-- `eyeslash_sofle_central_dongle_oled.uf2` - Dongle receiver
-- `settings_reset-nice_nano_v2-zmk.uf2` - Reset firmware (if needed)
-
-## 📋 Setup Instructions
-
-### Step 1: Flash Peripheral Firmware
-1. **Left Half Setup**:
-   - Put left Nice!Nano in bootloader mode (double-tap reset)
-   - Flash `eyeslash_sofle_peripheral_left nice_view_custom-nice_nano_v2-zmk.uf2`
-   - Wait for restart
-
-2. **Right Half Setup**:
-   - Put right Nice!Nano in bootloader mode (double-tap reset)
-   - Flash `eyeslash_sofle_peripheral_right nice_view_custom-nice_nano_v2-zmk.uf2`
-   - Wait for restart
-
-### Step 2: Prepare Dongle Hardware
-1. **Install Nice!Nano** in dongle housing
-2. **Connect OLED display** (if using)
-3. **Add status LEDs** (optional)
-4. **Install reset button** (recommended)
-
-### Step 3: Flash Dongle Firmware
-1. **Put dongle in bootloader mode** (double-tap reset)
-2. **Flash** `eyeslash_sofle_central_dongle_oled.uf2`
-3. **Wait for restart** - dongle should appear as USB device
-
-### Step 4: Pair Devices
-1. **Power on** all three devices (both halves + dongle)
-2. **Connect dongle** to computer via USB
-3. **Automatic pairing** should occur within 30 seconds
-4. **Verify connectivity** by testing keys from both halves
-
-## 🖥️ Dongle Display Information
-
-The OLED display on the dongle shows:
-- **Connection status** for left and right halves
-- **Active profile** information
-- **Battery levels** of connected peripherals
-- **Current layer** indicator
-- **Error messages** if connection issues occur
-
-### Display Layout
-```
-┌─────────────────┐
-│ EYELASH SOFLE   │
-│ Dongle Mode     │
-│                 │
-│ L: ●●●○○ (75%)  │
-│ R: ●●●●○ (85%)  │
-│                 │
-│ Profile: 1      │
-│ Layer: 0        │
-└─────────────────┘
-```
-
-## ⚙️ Configuration Options
-
-### Dongle Behavior Settings
-Located in dongle firmware configuration:
-
-```c
-// Connection timeout (ms)
-CONFIG_BT_PERIPHERAL_TIMEOUT=30000
-
-// Maximum connected peripherals
-CONFIG_BT_MAX_CONN=2
-
-// Display update interval (ms)
-CONFIG_DISPLAY_UPDATE_INTERVAL=1000
-
-// Auto-sleep timeout (ms)
-CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=1800000
-```
-
-### Peripheral Settings
-Both keyboard halves are configured as peripherals:
-
-```c
-// Peripheral mode enabled
-CONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
-
-// Advertising interval (ms)
-CONFIG_BT_PERIPHERAL_ADVERT_INTERVAL=40
-
-// Connection interval (ms)
-CONFIG_BT_PERIPHERAL_CONN_INTERVAL=7.5
-```
-
-## 🔄 Profile Management
-
-### Switching Profiles
-The dongle supports multiple profiles for different host devices:
-
-1. **Profile 0**: Default profile
-2. **Profile 1-4**: Additional profiles for different computers
-3. **Profile switching**: Use keyboard shortcuts or dongle button
-
-### Profile Selection Methods
-- **Keyboard shortcut**: Layer 2 + Number keys (0-4)
-- **Dongle button**: Press and hold for profile cycling
-- **Auto-switching**: Based on last connected device
-
-## 🛠️ Advanced Features
-
-### Low Latency Mode
-Enable ultra-low latency for gaming:
-```c
-CONFIG_BT_CTLR_TX_PWR_PLUS_8=y
-CONFIG_BT_CONN_INTERVAL_MIN=6
-CONFIG_BT_CONN_INTERVAL_MAX=6
-```
-
-### Battery Monitoring
-Dongle monitors and reports battery levels:
-- **Low battery warnings** displayed on OLED
-- **Automatic power management** for peripherals
-- **Battery level synchronization** with host
-
-### Connection Recovery
-Automatic reconnection features:
-- **Auto-reconnect** after temporary disconnection
-- **Connection prioritization** (last connected device first)
-- **Fallback pairing** if primary connection fails
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-#### Dongle Not Recognized
-- **Check USB connection** - try different ports/cables
-- **Verify firmware** - ensure correct dongle firmware flashed
-- **Driver issues** - may need USB driver reinstallation
-
-#### Peripherals Not Connecting
-- **Check pairing order** - dongle must be powered first
-- **Reset connections** - use settings reset firmware
-- **Battery levels** - ensure adequate charge on all devices
-
-#### High Latency/Lag
-- **Interference** - move away from other wireless devices
-- **Connection interval** - adjust in firmware configuration
-- **USB power** - ensure stable power supply to dongle
-
-#### Intermittent Connection
-- **Range issues** - keep devices within 3 meters
-- **Battery levels** - check and charge peripheral batteries
-- **Firmware updates** - ensure latest firmware on all devices
-
-### Reset Procedures
-
-#### Complete System Reset
-1. **Flash settings reset** to all three devices
-2. **Power cycle** all devices
-3. **Re-flash** appropriate firmware to each device
-4. **Re-pair** in correct order (dongle first)
-
-#### Partial Reset (Dongle Only)
-1. **Hold reset button** on dongle for 10 seconds
-2. **Re-flash dongle firmware** if needed
-3. **Power cycle peripherals** to re-establish connection
-
-## 📊 Performance Specifications
-
-| Metric | Specification |
-|--------|---------------|
-| **Latency** | <10ms typical, <5ms low-latency mode |
-| **Range** | Up to 10 meters line-of-sight |
-| **Battery Life** | 2-6 months per peripheral |
-| **Dongle Power** | USB-powered, <100mA |
-| **Profiles** | 5 simultaneous profiles |
-| **Reconnect Time** | <3 seconds typical |
-
-## 🎯 Use Cases
-
-### Ideal Scenarios
-- **Gaming setups** where Bluetooth latency is unacceptable
-- **Corporate environments** with Bluetooth restrictions
-- **Older computers** without Bluetooth capability
-- **KVM switches** and server management
-- **Secure environments** requiring wired connections
-
-### Limitations
-- **Requires USB port** for dongle connection
-- **Additional hardware** needed (third Nice!Nano)
-- **More complex setup** than standard Bluetooth mode
-- **Dongle must remain connected** to host device
-
-## 🔄 Switching Between Modes
-
-### From Standard to Dongle Mode
-1. **Flash peripheral firmware** to both halves
-2. **Set up dongle** with central firmware
-3. **Pair devices** in correct order
-4. **Test functionality** before regular use
-
-### From Dongle to Standard Mode
-1. **Flash standard firmware** to both halves
-2. **Reset Bluetooth settings** on host devices
-3. **Pair directly** to host device
-4. **Dongle becomes unused** (can be repurposed)
+The Eyelash Sofle supports **dongle/dock mode**: a 3-piece wireless split setup where a dedicated nice!nano dongle acts as the USB receiver, and both keyboard halves connect to it via BLE.
 
 ---
 
-**Need help?** Check the [Troubleshooting Guide](troubleshooting.md) or contact support at 380465425@qq.com for hardware-specific issues. 
+## What is Dongle Mode?
+
+```
+[Left Half]  ──BLE──┐
+                    ├──▶  [Dongle nice!nano] ──USB──▶ [Computer]
+[Right Half] ──BLE──┘
+```
+
+- **Dongle** — USB-powered nice!nano. Acts as BLE central. Appears to the computer as a standard USB HID keyboard.
+- **Left half** — battery-powered, acts as BLE peripheral
+- **Right half** — battery-powered, acts as BLE peripheral
+
+**Why dongle mode?**
+- Works on computers without Bluetooth (or where BT is locked down)
+- Slightly lower end-to-end latency than direct BLE to host
+- Dongle handles all BLE complexity; host sees a standard wired keyboard
+- RGB runs off USB power — no battery drain concern on the dongle
+
+---
+
+## Firmware Files
+
+Each piece needs its own firmware build:
+
+| Piece | Build artifact | Board target |
+|-------|----------------|-------------|
+| Dongle | `eyelash_sofle_dongle-nice_view-zmk.uf2` | `eyelash_sofle_dongle` |
+| Left half | `eyelash_sofle_left_peripheral-nice_view_custom-zmk.uf2` | `eyelash_sofle_left` |
+| Right half | `eyelash_sofle_right_peripheral-nice_view_custom-zmk.uf2` | `eyelash_sofle_right` |
+| Settings reset | `settings_reset-eyelash_sofle_left-zmk.uf2` | (any board) |
+
+Firmware is built via GitHub Actions. Download from the **Actions** tab → latest workflow run → **Artifacts**.
+
+---
+
+## Flashing Procedure
+
+### First-time setup (or after bond issues)
+
+1. **Flash settings reset to ALL THREE devices first** — this wipes BLE bonds and prevents pairing conflicts
+2. Then flash the correct firmware to each device (order doesn't matter after reset)
+3. Power on all three, plug dongle into USB → they will auto-pair
+
+### Regular firmware update
+
+You only need to reflash the device(s) whose firmware changed. Bonds persist across firmware updates unless you explicitly flash settings_reset.
+
+### How to enter bootloader (nice!nano)
+
+Double-tap the reset button. The device mounts as a USB drive (`NICENANO`). Drag the `.uf2` file onto it.
+
+If the reset button is hard to reach:
+- **ZMK Studio** can trigger a bootloader reset
+- Use the `&bootloader` key if bound on your keymap (SYS layer)
+
+### Dongle
+
+```
+1. Double-tap reset on dongle
+2. Drag eyelash_sofle_dongle-*.uf2 onto NICENANO drive
+3. Dongle reboots, starts advertising as USB HID device
+```
+
+### Left half
+
+```
+1. Double-tap reset on left half
+2. Drag eyelash_sofle_left_peripheral-*.uf2 onto NICENANO drive
+3. Half reboots, starts scanning for dongle
+```
+
+### Right half
+
+```
+1. Double-tap reset on right half
+2. Drag eyelash_sofle_right_peripheral-*.uf2 onto NICENANO drive
+3. Half reboots, starts scanning for dongle
+```
+
+---
+
+## Pairing After Reflashing
+
+If you flashed settings_reset (or have new firmware that changes the split address):
+
+1. Flash settings_reset to **all three** devices
+2. Flash production firmware to all three
+3. Plug dongle into USB
+4. Power on both halves
+5. Wait 10–30 seconds — the halves advertise, dongle scans and bonds automatically
+6. Test keys from both halves
+
+You do **not** need to do anything on the host computer — pairing is dongle ↔ halves only. The host just sees a USB keyboard.
+
+---
+
+## Config Differences: Dongle vs Halves
+
+| Setting | Dongle | Left/Right halves |
+|---------|--------|-------------------|
+| `CONFIG_ZMK_SPLIT_ROLE_CENTRAL` | `y` | `n` (implicit) |
+| `CONFIG_ZMK_SLEEP` | **`n`** (USB-powered) | `y` (battery) |
+| `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT` | N/A | 300,000ms (5 min) |
+| `CONFIG_BT_CTLR_TX_PWR_*` | `PLUS_8` (max range) | `MINUS_20` (desk range) |
+| `CONFIG_BT_PERIPHERAL_PREF_MIN_INT` | `6` (7.5ms) | `6` (7.5ms) |
+| `CONFIG_BT_SUPERVISION_TIMEOUT` | `400` (4s) | default |
+| `CONFIG_BT_MAX_CONN` | `7` (2 peripherals + 5 profiles) | default |
+| `CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB` | **`n`** (always USB) | `y` (off on battery) |
+| `CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE` | **`n`** (USB-powered) | `y` (save battery) |
+| `CONFIG_ZMK_BACKLIGHT_AUTO_OFF_IDLE` | `n` | `y` (save battery) |
+
+---
+
+## Reconnection Troubleshooting
+
+### A half dropped and won't reconnect
+
+1. **Wait 10 seconds** — BLE supervision timeout is 4 seconds on the dongle; the half will re-advertise and reconnect automatically
+2. If still not reconnecting: **power cycle the half** (flip the power switch off/on)
+3. Still nothing: power cycle the dongle too (unplug/replug USB)
+4. If bonds are corrupted: flash settings_reset to the affected half and the dongle, then reflash production firmware to both
+
+### Both halves won't connect after dongle reboot
+
+- This is normal on first plug-in: both halves need to wake from sleep
+- Press any key on each half to wake them — they will reconnect within 5–10 seconds
+- Halves sleep after 5 minutes idle (power switch should still show green LED if powered)
+
+### Dongle not appearing as USB keyboard on host
+
+1. Verify correct firmware flashed to dongle (not peripheral firmware)
+2. Try a different USB port or cable
+3. Check dongle display — it should show connection status for L and R halves
+4. If display shows no connection, both halves may still be asleep
+
+### ZMK Studio not connecting
+
+ZMK Studio connects to the **dongle** via USB (not the halves). Make sure:
+- Dongle is plugged in
+- Browser supports WebSerial (Chrome/Edge, not Firefox)
+- Navigate to [zmk.studio](https://zmk.studio) and select the dongle's serial port
+
+### Latency feels high
+
+The dongle firmware is configured for 7.5ms BLE connection intervals (min_int=6). If latency is still high:
+- Check for 2.4GHz interference (WiFi router, other BLE devices)
+- Ensure dongle is not behind a metal panel that blocks signal
+- The nice!nano's BLE is 2.4GHz — USB 3 ports emit 2.4GHz interference, so use a USB 2 port or a short extension cable
+
+---
+
+## Battery Tips for the Halves
+
+The halves sleep after **5 minutes idle** (configurable via `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT`).
+
+**To maximize battery life:**
+- Keep the power switch **on** between uses — sleeping nice!nano draws ~3μA, far less than what the power switch wastes when off/on cycling damages the MCU state
+- RGB underglow on the halves **automatically turns off** when not USB-powered (during normal wireless use) — this is the single biggest battery savings
+- Backlight also auto-off when idle
+- TX power is set to -20 dBm (vs default 0 dBm or +8 on dongle) — works fine at desk range, saves notable battery
+
+**Expected battery life** with these settings:
+- Light use (8hr/day typing): 3–6 months on a 110mAh battery
+- Heavy use or RGB enabled: 2–4 weeks
+
+**To enable RGB on the halves:**  
+Edit `eyelash_sofle_peripheral_left.conf` / `right.conf`: set `CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_USB=n`. Note this will significantly reduce battery life.
+
+---
+
+## Quick Reference: Build Matrix
+
+The `build-dongle.yaml` file defines the three firmware targets:
+
+```yaml
+# Dongle
+- board: eyelash_sofle_dongle
+  shield: nice_view
+  snippet: studio-rpc-usb-uart
+
+# Left half (peripheral)
+- board: eyelash_sofle_left
+  shield: nice_view_custom
+  snippet: studio-rpc-usb-uart
+
+# Right half (peripheral)
+- board: eyelash_sofle_right
+  shield: nice_view_custom
+  snippet: studio-rpc-usb-uart
+```
+
+See `build-dongle.yaml` at the repo root for the full cmake-args and artifact names.
+
+---
+
+## Switching Back to Standard Mode (Direct BLE)
+
+Standard mode = each half pairs directly to your computer (no dongle needed).
+
+To switch:
+1. Use the standard `build.yaml` instead of `build-dongle.yaml`
+2. Flash left-standard and right-standard firmware to the halves
+3. Pair each half directly to your computer via BLE profiles
+
+The dongle can be repurposed as another half or left unused.
