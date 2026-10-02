@@ -83,7 +83,7 @@ Use GitHub Actions for cloud-based building (slower but no local setup required)
 ### Clone the Repository
 ```bash
 # Clone this repository
-git clone https://github.com/your-username/zmk-sofle.git zmk-sofle
+git clone https://github.com/alliecatowo/zmk-sofle.git zmk-sofle
 cd zmk-sofle
 
 # Initialize ZMK workspace
